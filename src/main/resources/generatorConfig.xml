@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!--数据库驱动jar -->
+    <classPathEntry
+            location="D:\maven\maven_repository\mysql\mysql-connector-java\8.0.15\mysql-connector-java-8.0.15.jar" />
+
+    <context id="MysqlContext" targetRuntime="MyBatis3Simple"
+             defaultModelType="flat">
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="net.togogo.praise.utils.MyMapper"/>
+        </plugin>
+
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/fms?nullCatalogMeansCurrent=true"
+                        userId="root"
+                        password="123456">
+        </jdbcConnection>
+
+        <!-- 对于生成的pojo所在包 -->
+        <javaModelGenerator targetPackage="factory.management.system.project.entity"
+                            targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!-- 对于生成的mapper所在目录 -->
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources"/>
+
+        <!-- 配置mapper对应的java映射 -->
+        <javaClientGenerator targetPackage="factory.management.system.project.mapper"
+                             targetProject="src/main/java"
+                             type="XMLMAPPER">
+        </javaClientGenerator>
+
+
+        <table tableName="t_admin" domainObjectName="Admin"></table>
+        <table tableName="t_car" domainObjectName="Car"></table>
+        <table tableName="t_department" domainObjectName="Department"></table>
+        <table tableName="t_driver" domainObjectName="Driver"></table>
+        <table tableName="t_employee" domainObjectName="Employee"></table>
+        <table tableName="t_employee_record" domainObjectName="EmployeeRecord"></table>
+        <table tableName="t_group" domainObjectName="Group"></table>
+        <table tableName="t_line" domainObjectName="Line"></table>
+        <table tableName="t_line_station" domainObjectName="LineStation"></table>
+        <table tableName="t_schedule" domainObjectName="Schedule"></table>
+        <table tableName="t_schedule_record" domainObjectName="ScheduleRecord"></table>
+        <table tableName="t_station" domainObjectName="Station"></table>
+
+    </context>
+</generatorConfiguration>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="factory.management.system.project.mapper.ScheduleRecordMapper">
+  <resultMap id="BaseResultMap" type="factory.management.system.project.entity.ScheduleRecord">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="sr_id" jdbcType="INTEGER" property="srId" />
+    <result column="schedule_id" jdbcType="INTEGER" property="scheduleId" />
+    <result column="passenger_number" jdbcType="INTEGER" property="passengerNumber" />
+    <result column="ride_ratio" jdbcType="DOUBLE" property="rideRatio" />
+  </resultMap>
+</mapper>

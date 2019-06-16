@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="factory.management.system.project.mapper.StationMapper">
+  <resultMap id="BaseResultMap" type="factory.management.system.project.entity.Station">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="station_id" jdbcType="INTEGER" property="stationId" />
+    <result column="station_name" jdbcType="VARCHAR" property="stationName" />
+    <result column="station_location" jdbcType="VARCHAR" property="stationLocation" />
+  </resultMap>
+</mapper>
