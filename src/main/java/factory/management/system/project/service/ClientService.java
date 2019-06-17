@@ -1,10 +1,14 @@
 package factory.management.system.project.service;
 
+import com.github.pagehelper.PageInfo;
 import factory.management.system.project.entity.EmployeeRecord;
 import factory.management.system.project.mapper.EmployeeRecordMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 import static factory.management.system.project.utils.MyUtils.getDateTime;
 
@@ -21,6 +25,10 @@ public class ClientService {
 
     @Autowired
     EmployeeRecordMapper employeeRecordMapper;
+
+    /*public PageInfo<ScheduleInfo> getSchedules(HttpServletRequest request) {
+
+    }*/
 
     /**
      * 新增员工乘车记录
