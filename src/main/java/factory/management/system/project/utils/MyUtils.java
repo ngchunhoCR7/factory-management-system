@@ -1,6 +1,9 @@
 package factory.management.system.project.utils;
 
 import com.github.pagehelper.PageHelper;
+import factory.management.system.project.mapper.EmployeeMapper;
+import factory.management.system.project.pojo.PageSizeInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.servlet.http.HttpServletRequest;
@@ -105,9 +108,9 @@ public class MyUtils {
      *
      * @param request HttpServletRequest请求
      */
-    public static void initPaging(HttpServletRequest request) {
+    public static void initPaging(PageSizeInfo pageSizeInfo) {
         // 设置当前页码
-        int currentPage = getPage(request);
+        int currentPage = getPage(pageSizeInfo);
         // 设置每页显示数量
         int pageSize = getSize(request);
         // 设置分页信息
@@ -120,9 +123,7 @@ public class MyUtils {
      * @param request HttpServletRequest请求
      * @return currentPage 当前页码
      */
-    private static int getPage(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-
+    private static int getPage(PageSizeInfo pageSizeInfo) {
         int currentPage;
         String page = request.getParameter("pageNum");
         String firstPage = request.getParameter("firstPage");
@@ -192,4 +193,5 @@ public class MyUtils {
     private static boolean isNotNull(Object object) {
         return object != null && !"".equals(object);
     }
+
 }
