@@ -1,7 +1,7 @@
 package factory.management.system.project.mapper;
 
 import factory.management.system.project.entity.Schedule;
-import net.togogo.praise.utils.MyMapper;
+import factory.management.system.project.utils.MyMapper;
 
 public interface ScheduleMapper extends MyMapper<Schedule> {
 }
