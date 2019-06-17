@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
@@ -134,18 +134,18 @@
             <div class="col-md-3 column">
                 <!--上车记录表单-->
                 <div style="margin: 45px 20px 0px 10px">
-                    <form class="form-horizontal" role="form">
+                    <form class="form-horizontal" role="form" th:action="@{/client/aboard}">
                         <div class="form-group">
                             <label>员工编号</label>
-                            <input type="number" class="form-control">
+                            <input type="number" class="form-control" name="employeeId">
                         </div>
                         <div class="form-group">
                             <label>排班编号</label>
-                            <input type="number" class="form-control">
+                            <input type="number" class="form-control" name="scheduleId">
                         </div>
                         <div class="form-group">
                             <label>站点编号</label>
-                            <input type="number" class="form-control">
+                            <input type="number" class="form-control" name="stationId">
                         </div>
                         <div class="form-group" style="margin-top: 30px">
                             <button type="submit" class="btn btn-success btn-block">打卡乘车</button>

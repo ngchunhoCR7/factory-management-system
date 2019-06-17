@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static factory.management.system.project.utils.MyUtils.getTime;
+import static factory.management.system.project.utils.MyUtils.getDateTime;
 
 /**
  * ClientService
@@ -30,7 +30,8 @@ public class ClientService {
     @Transactional(rollbackFor = Exception.class)
     public void insertEmpRecord(EmployeeRecord employeeRecord) {
         try {
-            employeeRecord.setBoardingTime();
+            // 设置上车时间
+            employeeRecord.setBoardingTime(getDateTime());
             employeeRecordMapper.insertSelective(employeeRecord);
         } catch (Exception e) {
             e.printStackTrace();
