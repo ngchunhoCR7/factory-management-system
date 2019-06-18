@@ -3,15 +3,10 @@ package factory.management.system.project.service;
 import com.github.pagehelper.PageInfo;
 import factory.management.system.project.entity.Employee;
 import factory.management.system.project.mapper.EmployeeMapper;
-import factory.management.system.project.utils.MyCrud;
-import factory.management.system.project.utils.MyMapper;
+import factory.management.system.project.pojo.PageSizeInfo;
+import factory.management.system.project.utils.MyDruid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-
-import static factory.management.system.project.utils.MyUtils.initPaging;
 
 /**
  * EmployeeService
@@ -27,22 +22,51 @@ public class EmployeeService {
     @Autowired
     private EmployeeMapper employeeMapper;
 
-    public PageInfo<Employee> getEmployees(HttpServletRequest request) {
-        // 初始化分页
-        initPaging(request);
-        // 获取分页后的数据
-        List<Employee> employees = employeeMapper.selectAll();
-        // 获取分页信息
-        PageInfo<Employee> pageInfo = new PageInfo<>(employees);
-        // 设置末页停留防止跳转至首页
-        if (pageInfo.getNextPage() == 0) {
-            pageInfo.setNextPage(pageInfo.getNavigateLastPage());
-        }
-        return pageInfo;
+    /**
+     * 获取员工列表
+     *
+     * @param pageSizeInfo
+     * @return
+     */
+    public PageInfo<Employee> getEmployees(PageSizeInfo pageSizeInfo) {
+        // 分页查询
+        return (PageInfo<Employee>) MyDruid.of(employeeMapper).retrieve(new PageSizeInfo());
     }
 
+    /**
+     * 获取单个员工
+     *
+     * @param employeeId
+     * @return
+     */
+    public Employee getEmployee(Integer employeeId) {
+        return (Employee) MyDruid.of(employeeMapper).retrieve(employeeId);
+    }
+
+    /**
+     * 新增员工
+     *
+     * @param employee
+     */
     public void insertEmployee(Employee employee) {
-//        MyCrud myCrud = new MyCrud(employee.getClass(), employee);
-//        myCrud.create();
+       MyDruid.of(employeeMapper).insert(employee);
+    }
+
+    /**
+     * 更新员工
+     *
+     * @param employee
+     */
+    public void updateEmployee(Employee employee) {
+        MyDruid.of(employeeMapper).update(employee);
+    }
+
+    /**
+     * 删除员工
+     *
+     * @param employeeId
+     */
+    public void deleteEmployee(Integer employeeId) {
+        MyDruid.of(employeeMapper).delete(employeeId);
     }
 }

@@ -1,6 +1,7 @@
 package factory.management.system.project.service;
 
 import com.github.pagehelper.PageInfo;
+import factory.management.system.project.entity.Employee;
 import factory.management.system.project.entity.EmployeeRecord;
 import factory.management.system.project.mapper.EmployeeRecordMapper;
 import org.springframework.beans.factory.annotation.Autowired;

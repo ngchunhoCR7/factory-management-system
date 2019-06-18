@@ -19,5 +19,5 @@ public class PageSizeInfo {
 
     private Integer pageSize;
 
-    private String firstQuery;
+    private boolean firstQuery;
 }

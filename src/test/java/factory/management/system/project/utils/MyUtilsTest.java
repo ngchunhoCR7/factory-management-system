@@ -3,6 +3,7 @@ package factory.management.system.project.utils;
 import com.github.pagehelper.PageInfo;
 import factory.management.system.project.entity.Employee;
 import factory.management.system.project.mapper.EmployeeMapper;
+import factory.management.system.project.pojo.PageSizeInfo;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,7 +32,7 @@ public class MyUtilsTest {
         List<Entity> list = myCrud.getMapper().selectAll();
         // 获取分页信息
         PageInfo<Entity> pageInfo = new PageInfo<>(list);*/
-        PageInfo<?> pageInfo = MyCrud.of(employeeMapper).retrieve();
+        PageInfo<?> pageInfo = MyDruid.of(employeeMapper).retrieve(new PageSizeInfo());
         for (Object e : pageInfo.getList()) {
             Employee employee = (Employee) e;
             System.out.println(employee.getEmployeeId() + " " + employee.getEmployeeName());
@@ -46,7 +47,7 @@ public class MyUtilsTest {
         employee.setEmployeeName("吉普车");
         employee.setDepartmentId(1);
         employee.setGroupId(1);
-        MyCrud.of(employeeMapper).create(employee);
+        MyDruid.of(employeeMapper).insert(employee);
     }
 
     @Test
@@ -54,6 +55,6 @@ public class MyUtilsTest {
         Employee employee = new Employee();
         employee.setEmployeeId(1600502102);
         employee.setEmployeeName("吉普森");
-        MyCrud.of(employeeMapper).update(employee);
+        MyDruid.of(employeeMapper).update(employee);
     }
 }

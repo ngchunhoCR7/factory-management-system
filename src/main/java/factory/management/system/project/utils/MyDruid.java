@@ -1,7 +1,7 @@
 package factory.management.system.project.utils;
 
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import factory.management.system.project.pojo.PageSizeInfo;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * MyCrud
+ * MyDruid
  *
  * @author ngchunho
  * @version 1.0.0
@@ -18,13 +18,19 @@ import java.util.List;
  */
 @NoArgsConstructor
 @Data
-public class MyCrud {
+public class MyDruid {
 
     private static MyMapper mapper;
 
-    public static MyCrud of(MyMapper mapper) {
-        MyCrud.mapper = mapper;
-        return new MyCrud();
+    /**
+     * 静态构造方法传入 mapper
+     *
+     * @param mapper
+     * @return
+     */
+    public static MyDruid of(MyMapper mapper) {
+        MyDruid.mapper = mapper;
+        return new MyDruid();
     }
 
     /**
@@ -32,10 +38,9 @@ public class MyCrud {
      *
      * @return
      */
-    public PageInfo<?> retrieve(/*HttpServletRequest request*/) {
+    public PageInfo<?> retrieve(PageSizeInfo pageSizeInfo) {
         // 初始化分页
-//        initPaging(request);
-        PageHelper.startPage(1, 5);
+        MyUtils.Page.initPaging(pageSizeInfo);
         // 获取分页后的数据
         List<?> list = mapper.selectAll();
         // 获取分页信息
@@ -48,16 +53,13 @@ public class MyCrud {
     }
 
     /**
-     * 新增方法
+     * 查询方法
+     *
+     * @param key
+     * @return
      */
-    @Transactional(rollbackFor = Exception.class)
-    public void create(Object record) {
-        try {
-            // 新增实体
-            mapper.insertSelective(record);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public Object retrieve(Object key) {
+        return mapper.selectByPrimaryKey(key);
     }
 
     /**
@@ -68,6 +70,19 @@ public class MyCrud {
         try {
             // 根据主键更新
             mapper.updateByPrimaryKeySelective(record);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 新增方法
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public void insert(Object record) {
+        try {
+            // 新增实体
+            mapper.insertSelective(record);
         } catch (Exception e) {
             e.printStackTrace();
         }
