@@ -23,7 +23,7 @@ public class ServerController {
 
     @RequestMapping("/index")
     public String index() {
-        return
+        return "index";
     }
 
     @RequestMapping("/login")
