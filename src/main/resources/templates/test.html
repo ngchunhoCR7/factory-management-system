@@ -10,9 +10,27 @@
 <body>
 <!-- 详细信息模态框（Modal） -->
 <div>
-    <a class="queryA" href="javascript:void(0)" onclick="query(1)">
-        <span class="glyphicon glyphicon-search"></span>
-    </a>
+    <div>
+        <a class="queryA btn-lg" href="javascript:void(0)" onclick="query(1600502101)">
+            <span class="glyphicon glyphicon-search"></span>
+        </a>
+    </div>
+    <div>
+        <form class="" role="form" id="f1" name="f1">
+            <div class="form-group">
+                <tr>
+                    <td>
+                        <input id="eid" type="number" name="employeeId" class="form-control">
+                        <input id="ename" type="text" name="employeeName" class="form-control">
+                    </td>
+                </tr>
+            </div>
+            <div class="form-group">
+                <input type="button" class="btn btn-success" onclick="query()" value="登录">
+            </div>
+        </form>
+
+    </div>
 
     <div class="modal fade" id="queryInfo" tabindex="-1" role="dialog"
          aria-labelledby="myModalLabel" aria-hidden="true">
@@ -27,10 +45,10 @@
                 <form action="/client/test" method="post">
                     <div class="modal-body">
                         <div class="input-group">
-                            <span class="input-group-addon">名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称</span>
+                            <span class="input-group-addon">员工姓名</span>
                             <input type="text" class="form-control" placeholder="请输入名称"
                                    id="employeeName" readonly="readonly">
-                        </div>
+                    </div>
                         <br/>
                         <div class="input-group">
                             <span class="input-group-addon">员工编号</span>
@@ -52,28 +70,28 @@
     </div>
 </div>
 <script>
-    function query(id) {
-        alert('ajax请求之前');
+    function query() {
+        // alert('ajax请求之前');
+        // alert(id);
         $.ajax({
-            url : "http://localhost:9000/client/test",
+            url : "http://localhost:9000/server/testdemo",
             async : true,
             type : "POST",
-            contentType: "application/json",
-            encoding: "UTF8",
-            data : {
-                "employeeId" : id,
-            },
+            // contentType: "application/json;charset=utf-8",// 数组转json才需要
+            dataType : "json",
+            data : $("#f1").serialize(),
             // 成功后开启模态框
             success : showQuery,
             error : function() {
                 alert("请求失败");
             },
-            dataType : "json"
         });
     }
 
     // 查询成功后向模态框插入数据并开启模态框。data是返回的JSON对象
     function showQuery(data) {
+        console.log(data);
+        console.log(data.resultCode);
         $("#employeeName").val(data.employeeName);
         $("#employeeId").val(data.employeeId);
         // 显示模态框

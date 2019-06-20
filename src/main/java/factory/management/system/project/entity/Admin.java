@@ -1,7 +1,12 @@
 package factory.management.system.project.entity;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
+@NoArgsConstructor
+@Data
 @Table(name = "t_admin")
 public class Admin {
     @Id

@@ -1,323 +1,487 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<!-- saved from url=(0054)https://getbootstrap.com/docs/4.3/examples/dashboard/# -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-	<head>
-		<meta charset="UTF-8">
-		<title>后台管理-WeAdmin Frame型后台管理系统-WeAdmin 1.0</title>
-		<meta name="renderer" content="webkit|ie-comp|ie-stand">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
-		<meta http-equiv="Cache-Control" content="no-siteapp" />
-		<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
-		<link rel="stylesheet" href="../static/css/font.css">
-		<link rel="stylesheet" href="../static/css/weadmin.css">
-		<script type="text/javascript" src="../layui/layui.js" charset="utf-8"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <title>后台服务器</title>
 
-	</head>
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/dashboard/">
 
-	<body>
-		<!-- 顶部开始 -->
-		<div class="container">
-			<div class="logo">
-				<a href=".../index.html">WeAdmin v1.0</a>
-			</div>
-			<div class="left_open">
-				<!-- <i title="展开左侧栏" class="iconfont">&#xe699;</i> -->
-				<i title="展开左侧栏" class="layui-icon layui-icon-shrink-right"></i>
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/index_files/bootstrap.min.css}" rel="stylesheet"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-			</div>
-			<ul class="layui-nav left fast-add" lay-filter="">
-				<li class="layui-nav-item">
-					<a href="javascript:;">+新增</a>
-					<dl class="layui-nav-child">
-						<!-- 二级菜单 -->
-						<dd>
-							<a onclick="WeAdminShow('资讯','https://www.baidu.com/')"><i class="layui-icon layui-icon-list"></i>资讯</a>
-						</dd>
-						<dd>
-							<a onclick="WeAdminShow('图片','http://www.baidu.com')"><i class="layui-icon layui-icon-picture-fine"></i>图片</a>
-						</dd>
-						<dd>
-							<a onclick="WeAdminShow('用户','https://www.baidu.com/')"><i class="layui-icon layui-icon-user"></i>用户</a>
-						</dd>
-					</dl>
-				</li>
-			</ul>
-			<ul class="layui-nav right" lay-filter="">
-				<li class="layui-nav-item">
-					<a href="javascript:;">Admin</a>
-					<dl class="layui-nav-child">
-						<!-- 二级菜单 -->
-						<dd>
-							<a onclick="WeAdminShow('个人信息','http://www.baidu.com')">个人信息</a>
-						</dd>
-						<dd>
-							<a onclick="WeAdminShow('切换帐号','./login.html')">切换帐号</a>
-						</dd>
-						<dd>
-							<a class="loginout" href="./login.html">退出</a>
-						</dd>
-					</dl>
-				</li>
-				<li class="layui-nav-item to-index">
-					<a href="/">前台首页</a>
-				</li>
-			</ul>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
 
-		</div>
-		<!-- 顶部结束 -->
-		<!-- 中部开始 -->
-		<!-- 左侧菜单开始 -->
-		<div class="left-nav">
-			<div id="side-nav">
-				<ul id="nav">
-					<li>
-						<a href="javascript:;">
-							<i class="iconfont">&#xe6b8;</i>
-							<cite>会员管理</cite>
-							<i class="iconfont nav_right">&#xe697;</i>
-						</a>
-						<ul class="sub-menu">
-							<li>
-								<a _href="../pages/member/list.html">
-									<i class="iconfont">&#xe6a7;</i>
-									<cite>会员列表</cite>
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <!-- Custom styles for this template -->
+    <link th:href="@{/index_files/dashboard.css}" rel="stylesheet">
+    <style type="text/css">/* Chart.js */
+    @-webkit-keyframes chartjs-render-animation {
+        from {
+            opacity: 0.99
+        }
+        to {
+            opacity: 1
+        }
+    }
 
-								</a>
-							</li>
-							<li>
-								<a _href="../pages/member/del.html">
-									<i class="iconfont">&#xe6a7;</i>
-									<cite>会员删除</cite>
+    @keyframes chartjs-render-animation {
+        from {
+            opacity: 0.99
+        }
+        to {
+            opacity: 1
+        }
+    }
 
-								</a>
-							</li>
-							<li>
-								<a href="javascript:;">
-									<i class="iconfont">&#xe70b;</i>
-									<cite>会员管理</cite>
-									<i class="iconfont nav_right">&#xe697;</i>
-								</a>
-								<ul class="sub-menu">
-									<li>
-										<a _href="../pages/member/addInput.html">
-											<i class="iconfont">&#xe6a7;</i>
-											<cite>输入框操作</cite>
-										</a>
-									</li>
-									<li>
-										<a _href="../pages/404.html">
-											<i class="iconfont">&#xe6a7;</i>
-											<cite>三级菜单演示</cite>
-										</a>
-									</li>
-									<li>
-										<a _href="../pages/404.html">
-											<i class="iconfont">&#xe6a7;</i>
-											<cite>导航菜单演示</cite>
-										</a>
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<i class="iconfont">&#xe705;</i>
-							<cite>文章管理</cite>
-							<i class="iconfont nav_right">&#xe697;</i>
-						</a>
-						<ul class="sub-menu">
-							<li>
-								<a _href="../pages/article/list.html">
-									<i class="iconfont">&#xe6a7;</i>
-									<cite>文章列表</cite>
-								</a>
-							</li>
-							<li>
-								<a _href="../pages/article/category.html">
-									<i class="iconfont">&#xe6a7;</i>
-									<cite>分类管理</cite>
-								</a>
-							</li>
-						</ul>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<i class="iconfont">&#xe723;</i>
-							<cite>订单管理</cite>
-							<i class="iconfont nav_right">&#xe697;</i>
-						</a>
-						<ul class="sub-menu">
-							<li>
-								<a _href="../pages/order/list.html">
-									<i class="iconfont">&#xe6a7;</i>
-									<cite>订单列表</cite>
-								</a>
-							</li>
-						</ul>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<i class="iconfont">&#xe726;</i>
-							<cite>管理员管理</cite>
-							<i class="iconfont nav_right">&#xe697;</i>
-						</a>
-						<ul class="sub-menu">
-							<li>
-								<a _href="../pages/admin/list.html">
-									<i class="iconfont">&#xe6a7;</i>
-									<cite>管理员列表</cite>
-								</a>
-							</li>
-							<li>
-								<a _href="../pages/admin/role.html">
-									<i class="iconfont">&#xe6a7;</i>
-									<cite>角色管理</cite>
-								</a>
-							</li>
-							<li>
-								<a _href="../pages/admin/cate.html">
-									<i class="iconfont">&#xe6a7;</i>
-									<cite>权限分类</cite>
-								</a>
-							</li>
-							<li>
-								<a _href="../pages/admin/rule.html">
-									<i class="iconfont">&#xe6a7;</i>
-									<cite>权限管理</cite>
-								</a>
-							</li>
-						</ul>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<i class="iconfont">&#xe6ce;</i>
-							<cite>系统统计</cite>
-							<i class="iconfont nav_right">&#xe697;</i>
-						</a>
-						<ul class="sub-menu">
-							<li>
-								<a _href="../pages/echarts/echarts1.html">
-									<i class="iconfont">&#xe6a7;</i>
-									<cite>拆线图</cite>
-								</a>
-							</li>
-							<li>
-								<a _href="../pages/echarts/echarts2.html">
-									<i class="iconfont">&#xe6a7;</i>
-									<cite>柱状图</cite>
-								</a>
-							</li>
-							<li>
-								<a _href="../pages/echarts/echarts3.html">
-									<i class="iconfont">&#xe6a7;</i>
-									<cite>地图</cite>
-								</a>
-							</li>
-							<li>
-								<a _href="../pages/echarts/echarts4.html">
-									<i class="iconfont">&#xe6a7;</i>
-									<cite>饼图</cite>
-								</a>
-							</li>
-							<li>
-								<a _href="../pages/echarts/echarts5.html">
-									<i class="iconfont">&#xe6a7;</i>
-									<cite>雷达图</cite>
-								</a>
-							</li>
-							<li>
-								<a _href="../pages/echarts/echarts6.html">
-									<i class="iconfont">&#xe6a7;</i>
-									<cite>k线图</cite>
-								</a>
-							</li>
-							<li>
-								<a _href="../pages/echarts/echarts7.html">
-									<i class="iconfont">&#xe6a7;</i>
-									<cite>热力图</cite>
-								</a>
-							</li>
-							<li>
-								<a _href="../pages/echarts/echarts8.html">
-									<i class="iconfont">&#xe6a7;</i>
-									<cite>仪表图</cite>
-								</a>
-							</li>
-							<li>
-								<a _href="../pages/echarts/echarts9.html">
-									<i class="iconfont">&#xe6a7;</i>
-									<cite>地图DIY实例</cite>
-								</a>
-							</li>
-						</ul>
-					</li>
-				</ul>
-			</div>
-		</div>
-		<!-- <div class="x-slide_left"></div> -->
-		<!-- 左侧菜单结束 -->
-		<!-- 右侧主体开始 -->
-		<div class="page-content">
-			<div class="layui-tab tab" lay-filter="wenav_tab" id="WeTabTip" lay-allowclose="true">
-				<ul class="layui-tab-title" id="tabName">
-					<li>我的桌面</li>
-				</ul>
-				<div class="layui-tab-content">
-					<div class="layui-tab-item layui-show">
-						<iframe src='../pages/welcome.html' frameborder="0" scrolling="yes" class="weIframe"></iframe>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="page-content-bg"></div>
-		<!-- 右侧主体结束 -->
-		<!-- 中部结束 -->
-		<!-- 底部开始 -->
-		<div class="footer">
-			<div class="copyright">Copyright ©2018 WeAdmin v1.0 All Rights Reserved</div>
-		</div>
-		<!-- 底部结束 -->
-		<script type="text/javascript">
-//			layui扩展模块的两种加载方式-示例
-//		    layui.extend({
-//			  admin: '{/}.../.../static/js/admin' // {/}的意思即代表采用自有路径，即不跟随 base 路径
-//			});
-//			//使用拓展模块
-//			layui.use('admin', function(){
-//			  var admin = layui.admin;
-//			});
-			layui.config({
-			  base: '../static/js/'
-			  ,version: '101100'
-			}).use('admin');
-			layui.use(['jquery','admin'], function(){
-				var $ = layui.jquery;
-				$(function(){
-					var login = JSON.parse(localStorage.getItem("login"));
-					if(login){
-						if(login=0){
-							window.location.href='./login.html';
-							return false;
-						}else{
-							return false;
-						}
-					}else{
-						window.location.href='./login.html';
-						return false;
-					}
-				});
-			});
-
-		</script>
-	</body>
-	<!--Tab菜单右键弹出菜单-->
-	<ul class="rightMenu" id="rightMenu">
-        <li data-type="fresh">刷新</li>
-        <li data-type="current">关闭当前</li>
-        <li data-type="other">关闭其它</li>
-        <li data-type="all">关闭所有</li>
+    .chartjs-render-monitor {
+        -webkit-animation: chartjs-render-animation 0.001s;
+        animation: chartjs-render-animation 0.001s;
+    }</style>
+</head>
+<body>
+<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="https://getbootstrap.com/docs/4.3/examples/dashboard/#"
+       style="font-size: 20px">
+        车厂管理系统
+    </a>
+    <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+            <a class="nav-link" href="https://getbootstrap.com/docs/4.3/examples/dashboard/#">退出</a>
+        </li>
     </ul>
+</nav>
 
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="https://getbootstrap.com/docs/4.3/examples/dashboard/#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-home">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                            </svg>
+                            员工管理 <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://getbootstrap.com/docs/4.3/examples/dashboard/#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-users">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                            部门管理
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://getbootstrap.com/docs/4.3/examples/dashboard/#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-users">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                            组别管理
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://getbootstrap.com/docs/4.3/examples/dashboard/#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-shopping-cart">
+                                <circle cx="9" cy="21" r="1"></circle>
+                                <circle cx="20" cy="21" r="1"></circle>
+                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                            </svg>
+                            车辆管理
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://getbootstrap.com/docs/4.3/examples/dashboard/#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-shopping-cart">
+                                <circle cx="9" cy="21" r="1"></circle>
+                                <circle cx="20" cy="21" r="1"></circle>
+                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                            </svg>
+                            司机管理
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://getbootstrap.com/docs/4.3/examples/dashboard/#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-layers">
+                                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                                <polyline points="2 17 12 22 22 17"></polyline>
+                                <polyline points="2 12 12 17 22 12"></polyline>
+                            </svg>
+                            线路管理
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://getbootstrap.com/docs/4.3/examples/dashboard/#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-layers">
+                                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                                <polyline points="2 17 12 22 22 17"></polyline>
+                                <polyline points="2 12 12 17 22 12"></polyline>
+                            </svg>
+                            站点管理
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://getbootstrap.com/docs/4.3/examples/dashboard/#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none"
+                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                 class="feather feather-calendar">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                            排班管理
+                        </a>
+                    </li>
+                </ul>
+
+                <h5 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    <span>Record & Statistics</span>
+                    <a class="d-flex align-items-center text-muted"
+                       href="https://getbootstrap.com/docs/4.3/examples/dashboard/#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                             class="feather feather-plus-circle">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="16"></line>
+                            <line x1="8" y1="12" x2="16" y2="12"></line>
+                        </svg>
+                    </a>
+                </h5>
+                <ul class="nav flex-column mb-2">
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://getbootstrap.com/docs/4.3/examples/dashboard/#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-file">
+                                <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                                <polyline points="13 2 13 9 20 9"></polyline>
+                            </svg>
+                            员工记录
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://getbootstrap.com/docs/4.3/examples/dashboard/#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-file">
+                                <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                                <polyline points="13 2 13 9 20 9"></polyline>
+                            </svg>
+                            排班记录
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://getbootstrap.com/docs/4.3/examples/dashboard/#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-bar-chart-2">
+                                <line x1="18" y1="20" x2="18" y2="10"></line>
+                                <line x1="12" y1="20" x2="12" y2="4"></line>
+                                <line x1="6" y1="20" x2="6" y2="14"></line>
+                            </svg>
+                            线路统计
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://getbootstrap.com/docs/4.3/examples/dashboard/#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-bar-chart-2">
+                                <line x1="18" y1="20" x2="18" y2="10"></line>
+                                <line x1="12" y1="20" x2="12" y2="4"></line>
+                                <line x1="6" y1="20" x2="6" y2="14"></line>
+                            </svg>
+                            站点统计
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <div class="chartjs-size-monitor"
+                 style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+                <div class="chartjs-size-monitor-expand"
+                     style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                    <div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div>
+                </div>
+                <div class="chartjs-size-monitor-shrink"
+                     style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                    <div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+
+                <div class="col-md-12 column">
+                    <div class="page-header">
+                        <h1>
+                            员工管理
+                            <small>管理员工信息</small>
+                        </h1>
+                    </div>
+                </div>
+
+                <div class="col-md-9 column">
+                    <div>
+                        <!--搜索框-->
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group col-sm-4">
+                                <input type="text" class="form-control"/>
+                            </div>
+                            <div class="form-group col-sm-2" style="margin-left: 20px">
+                                <button type="submit" class="btn btn-success">查询班号</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div>
+                        <!--表格-->
+                        <table class="table table-bordered table-hover">
+                            <!--表头-->
+                            <thead>
+                            <tr>
+                                <th>
+                                    班级编号
+                                </th>
+                                <th>
+                                    班级名称
+                                </th>
+                                <th>
+                                    班级人数
+                                </th>
+                                <th>
+                                    开课时间
+                                </th>
+                                <th>
+                                    结课时间
+                                </th>
+                                <th>
+                                    班级类型
+                                </th>
+                                <th style="width: 145px">
+                                    操作
+                                </th>
+                            </tr>
+                            </thead>
+                            <!--表格内容-->
+                            <tbody>
+                            <tr class="success" th:each="tclass:${pageList.list}">
+                                <!--遍历列表-->
+                                <div th:object="${tclass}">
+                                    <td th:text="*{classId}"></td>
+                                    <td th:text="*{className}"></td>
+                                    <td th:text="*{classSize}"></td>
+                                    <td th:text="*{classStartTime}"></td>
+                                    <td th:text="*{classEndTime}"></td>
+                                    <td th:text="*{classType}"></td>
+                                    <td>
+                                        <!--操作按钮-->
+                                        <div style="margin: -5px 0 -5px 0">
+                                            <!--修改按钮-->
+                                            <span class="">
+                                                    <!--修改按钮-->
+                                                    <a id="modal-1" th:href="@{'#' + ${tclass.classId}}" role="button"
+                                                       class="btn btn-info btn-sm" data-toggle="modal">
+                                                        <span class="glyphicon glyphicon-file"></span>
+                                                        修改
+                                                    </a>
+                                                <!--遮罩窗体-->
+                                                    <div class="modal fade" th:id="${tclass.classId}" role="dialog"
+                                                         aria-labelledby="myModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <form role="form" th:action="@{/teacher/upadateclass}"
+                                                                      th:object="${tclass}">
+                                                                    <div class="modal-header">
+                                                                        <button type="button" class="close"
+                                                                                data-dismiss="modal" aria-hidden="true">×</button>
+                                                                        <h4 class="modal-title" id="myModalLabel"
+                                                                            style="color: steelblue">
+                                                                            修改班级
+                                                                        </h4>
+                                                                    </div>
+                                                                    <div class="modal-body" style="font-size: 15px">
+                                                                        <div class="form-group">
+                                                                            <input type="hidden" class="form-control"
+                                                                                   name="classId" th:value="*{classId}">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label>班级名称</label>
+                                                                            <input type="text" class="form-control"
+                                                                                   name="className"
+                                                                                   th:value="*{className}">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label>班级人数</label>
+                                                                            <input type="number" class="form-control"
+                                                                                   name="classSize"
+                                                                                   th:value="*{classSize}">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label>开课时间</label>
+                                                                            <input type="date" class="form-control"
+                                                                                   name="classStartTime"
+                                                                                   th:value="*{classStartTime}">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label>结课时间</label>
+                                                                            <input type="date" class="form-control"
+                                                                                   name="classEndTime"
+                                                                                   th:value="*{classEndTime}">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label>班级类型</label>
+                                                                            <input type="text" class="form-control"
+                                                                                   name="classType"
+                                                                                   th:value="*{classType}">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer form-group">
+                                                                        <button type="button" class="btn btn-default"
+                                                                                data-dismiss="modal">关闭</button>
+                                                                        <button type="submit"
+                                                                                class="btn btn-primary">保存</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </span>
+
+                                            <!--删除按钮-->
+                                            <span class="">
+                                            <a class="btn btn-danger btn-sm"
+                                               th:href="@{'/teacher/deleteclass?classId=' + ${tclass.classId}}">
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                                删除
+                                            </a>
+                                        </span>
+                                        </div>
+                                    </td>
+                                </div>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div>
+                        <!--分页-->
+                        <ul class="pagination">
+                            <li>
+                                <a href="#">首页</a>
+                            </li>
+                            <li>
+                                <a href="#">&lt;</a>
+                            </li>
+                            <li>
+                                <a href="#">1</a>
+                            </li>
+                            <li>
+                                <a href="#">2</a>
+                            </li>
+                            <li>
+                                <a href="#">3</a>
+                            </li>
+                            <li>
+                                <a href="#">4</a>
+                            </li>
+                            <li>
+                                <a href="#">5</a>
+                            </li>
+                            <li>
+                                <a href="#">&gt;</a>
+                            </li>
+                            <li>
+                                <a href="#">尾页</a>
+                            </li>
+                        </ul>
+
+                        <!--                    <div class="pagination" th:replace="pagination::pagination"></div>-->
+                    </div>
+                </div>
+
+                <div class="col-md-3 column">
+                    <!--上车记录表单-->
+                    <div style="margin: 45px 20px 0px 10px">
+                        <form class="form-horizontal" role="form" method="post" th:action="@{/client/aboard}">
+                            <div class="form-group">
+                                <label>员工编号</label>
+                                <input type="number" class="form-control" name="employeeId">
+                            </div>
+                            <div class="form-group">
+                                <label>排班编号</label>
+                                <input type="number" class="form-control" name="scheduleId">
+                            </div>
+                            <div class="form-group">
+                                <label>站点编号</label>
+                                <input type="number" class="form-control" name="stationId">
+                            </div>
+                            <div class="form-group" style="margin-top: 30px">
+                                <button type="submit" class="btn btn-success btn-block">打卡乘车</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+</div>
+<script th:src="@{/index_files/jquery-3.3.1.slim.min.js}"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script th:src="/docs/4.3/assets/js/vendor/jquery-slim.min.js}"><\/script>')</script>
+<script th:src="@{/index_files/bootstrap.bundle.min.js}"
+        integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o"
+        crossorigin="anonymous"></script>
+<script th:src="@{/index_files/feather.min.js}"></script>
+<script th:src="@{/index_files/Chart.min.js}"></script>
+<script th:src="@{/index_files/dashboard.js}"></script>
+
+</body>
 </html>

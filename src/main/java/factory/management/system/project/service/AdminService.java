@@ -5,8 +5,12 @@ import factory.management.system.project.entity.Admin;
 import factory.management.system.project.mapper.AdminMapper;
 import factory.management.system.project.pojo.PageSizeInfo;
 import factory.management.system.project.utils.MyDruid;
+import factory.management.system.project.utils.PasswordEncrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
+
+import java.util.List;
 
 /**
  * AdminService
@@ -68,5 +72,27 @@ public class AdminService {
      */
     public void deleteAdmin(Integer AdminId) {
         MyDruid.of(adminMapper).delete(AdminId);
+    }
+
+    /**
+     * 登录方法
+     *
+     * @param admin
+     * @return
+     */
+    public boolean login(Admin admin) {
+        // 新建example
+        Example example = new Example(Admin.class);
+        Example.Criteria criteria = example.createCriteria();
+        // 设置查询条件
+        criteria.andEqualTo("adminName", admin.getAdminName());
+        criteria.andEqualTo("adminPassword", PasswordEncrypt.encodeByMd5(admin.getAdminPassword()));
+        // 查找判断
+        List<Admin> admins = adminMapper.selectByExample(example);
+        if(admins == null) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }
