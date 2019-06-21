@@ -30,7 +30,7 @@ public class ScheduleService {
      */
     public PageInfo<Schedule> getSchedules(PageSizeInfo pageSizeInfo) {
         // 分页查询
-        return (PageInfo<Schedule>) MyDruid.of(ScheduleMapper).retrieve(new PageSizeInfo());
+        return (PageInfo<Schedule>) MyDruid.of(ScheduleMapper).retrieve(pageSizeInfo);
     }
 
     /**

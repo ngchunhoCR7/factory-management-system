@@ -19,7 +19,7 @@ public class Schedule {
      * 发车时间
      */
     @Column(name = "departure_time")
-    private Date departureTime;
+    private String departureTime;
 
     /**
      * @return schedule_id
@@ -68,7 +68,7 @@ public class Schedule {
      *
      * @return departure_time - 发车时间
      */
-    public Date getDepartureTime() {
+    public String getDepartureTime() {
         return departureTime;
     }
 
@@ -77,7 +77,7 @@ public class Schedule {
      *
      * @param departureTime 发车时间
      */
-    public void setDepartureTime(Date departureTime) {
+    public void setDepartureTime(String departureTime) {
         this.departureTime = departureTime;
     }
 }

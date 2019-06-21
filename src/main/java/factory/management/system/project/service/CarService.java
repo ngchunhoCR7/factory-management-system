@@ -3,10 +3,14 @@ package factory.management.system.project.service;
 import com.github.pagehelper.PageInfo;
 import factory.management.system.project.entity.Car;
 import factory.management.system.project.mapper.CarMapper;
+import factory.management.system.project.pojo.CarInfo;
 import factory.management.system.project.pojo.PageSizeInfo;
 import factory.management.system.project.utils.MyDruid;
+import factory.management.system.project.utils.MyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * CarController
@@ -23,6 +27,26 @@ public class CarService {
     private CarMapper carMapper;
 
     /**
+     * 获取车辆信息列表
+     *
+     * @param pageSizeInfo
+     * @return
+     */
+    public PageInfo<CarInfo> getCdInfo(PageSizeInfo pageSizeInfo) {
+        // 分页查询
+        return (PageInfo<CarInfo>) MyDruid.of(carMapper).retrieveInfo(pageSizeInfo);
+    }
+
+    /**
+     * 获取单个车辆信息
+     *
+     * @return
+     */
+    public CarInfo getInfoById(Integer carId) {
+        return carMapper.selectInfoById(carId);
+    }
+
+    /**
      * 获取车辆列表
      *
      * @param pageSizeInfo
@@ -30,7 +54,7 @@ public class CarService {
      */
     public PageInfo<Car> getCars(PageSizeInfo pageSizeInfo) {
         // 分页查询
-        return (PageInfo<Car>) MyDruid.of(carMapper).retrieve(new PageSizeInfo());
+        return (PageInfo<Car>) MyDruid.of(carMapper).retrieve(pageSizeInfo);
     }
 
     /**

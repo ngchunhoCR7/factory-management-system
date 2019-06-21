@@ -32,7 +32,7 @@ public class EmployeeRecordController {
         model.addAttribute("pageList", pageInfo);
         // 设置分页跳转链接
         model.addAttribute("url", "/server/employeeRecord/select");
-        return "page/employeeRecord";
+        return "server/employeeRecord";
     }
 
     @RequestMapping(value = "/insert", method = RequestMethod.POST)

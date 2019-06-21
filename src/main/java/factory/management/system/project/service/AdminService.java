@@ -34,7 +34,7 @@ public class AdminService {
      */
     public PageInfo<Admin> getAdmins(PageSizeInfo pageSizeInfo) {
         // 分页查询
-        return (PageInfo<Admin>) MyDruid.of(adminMapper).retrieve(new PageSizeInfo());
+        return (PageInfo<Admin>) MyDruid.of(adminMapper).retrieve(pageSizeInfo);
     }
 
     /**

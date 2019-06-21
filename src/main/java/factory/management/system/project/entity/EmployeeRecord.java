@@ -22,12 +22,12 @@ public class EmployeeRecord {
      * 上车时间
      */
     @Column(name = "boarding_time")
-    private Date boardingTime;
+    private String boardingTime;
 
     /**
      * 乘车状态
      */
-    private Integer status;
+    private String status;
 
     /**
      * @return er_id
@@ -90,7 +90,7 @@ public class EmployeeRecord {
      *
      * @return boarding_time - 上车时间
      */
-    public Date getBoardingTime() {
+    public String getBoardingTime() {
         return boardingTime;
     }
 
@@ -99,7 +99,7 @@ public class EmployeeRecord {
      *
      * @param boardingTime 上车时间
      */
-    public void setBoardingTime(Date boardingTime) {
+    public void setBoardingTime(String boardingTime) {
         this.boardingTime = boardingTime;
     }
 
@@ -108,7 +108,7 @@ public class EmployeeRecord {
      *
      * @return status - 乘车状态
      */
-    public Integer getStatus() {
+    public String getStatus() {
         return status;
     }
 
@@ -117,7 +117,7 @@ public class EmployeeRecord {
      *
      * @param status 乘车状态
      */
-    public void setStatus(Integer status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 }

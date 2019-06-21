@@ -1,13 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="factory.management.system.project.mapper.EmployeeMapper">
-  <resultMap id="BaseResultMap" type="factory.management.system.project.entity.Employee">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="employee_id" jdbcType="INTEGER" property="employeeId" />
-    <result column="employee_name" jdbcType="VARCHAR" property="employeeName" />
-    <result column="department_id" jdbcType="INTEGER" property="departmentId" />
-    <result column="group_id" jdbcType="INTEGER" property="groupId" />
-  </resultMap>
+    <resultMap id="BaseResultMap" type="factory.management.system.project.entity.Employee">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="employee_id" jdbcType="INTEGER" property="employeeId"/>
+        <result column="employee_name" jdbcType="VARCHAR" property="employeeName"/>
+        <result column="department_id" jdbcType="INTEGER" property="departmentId"/>
+        <result column="group_id" jdbcType="INTEGER" property="groupId"/>
+    </resultMap>
+    
+    <resultMap id="EmployeeResultMap" type="factory.management.system.project.pojo.EmployeeInfo">
+        <id column="employee_id" jdbcType="INTEGER" property="employeeId"/>
+        <result column="employee_name" jdbcType="VARCHAR" property="employeeName"/>
+        <result column="department_id" jdbcType="INTEGER" property="departmentId"/>
+        <result column="group_id" jdbcType="INTEGER" property="groupId"/>
+        
+        <association property="department" javaType="factory.management.system.project.entity.Department">
+            <id column="department_id" jdbcType="INTEGER" property="departmentId" />
+            <result column="department_name" jdbcType="VARCHAR" property="departmentName" />
+        </association>
+
+        <association property="group" javaType="factory.management.system.project.entity.Group">
+            <id column="group_id" jdbcType="INTEGER" property="groupId" />
+            <result column="group_name" jdbcType="VARCHAR" property="groupName" />
+        </association>
+    </resultMap>
+    
+    <select id="selectInfo" resultMap="EmployeeResultMap">
+        select e.employee_id, e.employee_name,
+                d.department_id, d.department_name,
+                g.group_id, g.group_name
+        from `t_employee` e
+        left join `t_department` d on e.department_id = d.department_id
+        left join `t_group` g on e.group_id = g.group_id
+        order by e.employee_id
+    </select>
+
+    <select id="selectInfoById" resultMap="EmployeeResultMap">
+        select e.employee_id, e.employee_name,
+                d.department_id, d.department_name,
+                g.group_id, g.group_name
+        from `t_employee` e
+        left join `t_department` d on e.department_id = d.department_id
+        left join `t_group` g on e.group_id = g.group_id
+        where e.employee_id = #{employeeId}
+    </select>
+
 </mapper>

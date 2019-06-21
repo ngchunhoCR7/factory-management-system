@@ -30,7 +30,7 @@ public class LineService {
      */
     public PageInfo<Line> getLines(PageSizeInfo pageSizeInfo) {
         // 分页查询
-        return (PageInfo<Line>) MyDruid.of(LineMapper).retrieve(new PageSizeInfo());
+        return (PageInfo<Line>) MyDruid.of(LineMapper).retrieve(pageSizeInfo);
     }
 
     /**

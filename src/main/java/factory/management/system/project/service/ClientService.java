@@ -1,17 +1,12 @@
 package factory.management.system.project.service;
 
-import com.github.pagehelper.PageInfo;
-import factory.management.system.project.entity.Employee;
 import factory.management.system.project.entity.EmployeeRecord;
 import factory.management.system.project.mapper.EmployeeRecordMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-
-import static factory.management.system.project.utils.MyUtils.getDateTime;
+import static factory.management.system.project.utils.MyUtils.DateUtils;
 
 /**
  * ClientService
@@ -40,7 +35,8 @@ public class ClientService {
     public void insertEmpRecord(EmployeeRecord employeeRecord) {
         try {
             // 设置上车时间
-            employeeRecord.setBoardingTime(getDateTime());
+            employeeRecord.setBoardingTime(DateUtils.getDateTimeString());
+            employeeRecord.setStatus("打卡乘车");
             employeeRecordMapper.insertSelective(employeeRecord);
         } catch (Exception e) {
             e.printStackTrace();

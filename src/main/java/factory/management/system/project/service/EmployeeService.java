@@ -3,10 +3,14 @@ package factory.management.system.project.service;
 import com.github.pagehelper.PageInfo;
 import factory.management.system.project.entity.Employee;
 import factory.management.system.project.mapper.EmployeeMapper;
+import factory.management.system.project.pojo.EmployeeInfo;
 import factory.management.system.project.pojo.PageSizeInfo;
 import factory.management.system.project.utils.MyDruid;
+import factory.management.system.project.utils.MyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * EmployeeService
@@ -23,14 +27,34 @@ public class EmployeeService {
     private EmployeeMapper employeeMapper;
 
     /**
-     * 获取员工列表
+     * 获取员工信息列表
      *
      * @param pageSizeInfo
      * @return
      */
+    public PageInfo<EmployeeInfo> getInfo(PageSizeInfo pageSizeInfo) {
+        // 分页查询
+        return (PageInfo<EmployeeInfo>) MyDruid.of(employeeMapper).retrieveInfo(pageSizeInfo);
+    }
+
+    /**
+     * 获取单个员工信息
+     *
+     * @return
+     */
+    public EmployeeInfo getInfoById(Integer employeeId) {
+        return employeeMapper.selectInfoById(employeeId);
+    }
+
+    /**
+     * 获取员工列表
+     *
+     * @return
+     */
+    @Deprecated
     public PageInfo<Employee> getEmployees(PageSizeInfo pageSizeInfo) {
         // 分页查询
-        return (PageInfo<Employee>) MyDruid.of(employeeMapper).retrieve(new PageSizeInfo());
+        return (PageInfo<Employee>) MyDruid.of(employeeMapper).retrieve(pageSizeInfo);
     }
 
     /**
@@ -39,6 +63,7 @@ public class EmployeeService {
      * @param employeeId
      * @return
      */
+    @Deprecated
     public Employee getEmployee(Integer employeeId) {
         return (Employee) MyDruid.of(employeeMapper).retrieve(employeeId);
     }

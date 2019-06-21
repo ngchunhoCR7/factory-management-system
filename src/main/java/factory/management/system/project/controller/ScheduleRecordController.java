@@ -32,7 +32,7 @@ public class ScheduleRecordController {
         model.addAttribute("pageList", pageInfo);
         // 设置分页跳转链接
         model.addAttribute("url", "/server/scheduleRecord/select");
-        return "page/scheduleRecord";
+        return "server/scheduleRecord";
     }
 
     @RequestMapping(value = "/insert", method = RequestMethod.POST)

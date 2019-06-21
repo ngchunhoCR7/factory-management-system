@@ -30,7 +30,7 @@ public class LineStationService {
      */
     public PageInfo<LineStation> getLineStations(PageSizeInfo pageSizeInfo) {
         // 分页查询
-        return (PageInfo<LineStation>) MyDruid.of(LineStationMapper).retrieve(new PageSizeInfo());
+        return (PageInfo<LineStation>) MyDruid.of(LineStationMapper).retrieve(pageSizeInfo);
     }
 
     /**

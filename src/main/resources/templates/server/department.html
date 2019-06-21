@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Bootstrap</title>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row clearfix">
+        <div class="mainText" th:fragment="container">
+            <div class="col-md-12 column">
+                <div class="page-header">
+                    <h2>
+                        部门管理
+                        <small>管理部门信息</small>
+                    </h2>
+                </div>
+            </div>
+
+            <div class="col-md-9 column border-right">
+                <div>
+                    <!--搜索框-->
+                    <form class="form-horizontal" role="form" th:action="@{${url} + '/select'}">
+                        <div class="form-group col-sm-3">
+                            <input type="number" class="form-control" name="departmentId" placeholder="请输入部门编号"/>
+                        </div>
+                        <div class="form-group col-sm-2" style="margin-left: 20px">
+                            <button type="submit" class="btn btn-success">查询部门</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div>
+                    <!--表格-->
+                    <table class="table table-bordered table-hover">
+                        <!--表头-->
+                        <thead>
+                        <tr>
+                            <th>
+                                部门编号
+                            </th>
+                            <th>
+                                部门名称
+                            </th>
+                            <th>
+                                部门备注
+                            </th>
+                            <th style="width: 145px">
+                                操作
+                            </th>
+                        </tr>
+                        </thead>
+                        <!--表格内容-->
+                        <tbody>
+                        <tr class="warning" th:each="department:${pageList.list}">
+                            <!--遍历列表-->
+                            <!--/*@thymesVar id="department" type="factory.management.system.project.pojo.department"*/-->
+                            <div th:object="${department}">
+                                <td th:text="*{departmentId}"></td>
+                                <td th:text="*{departmentName}"></td>
+                                <td th:text="*{note}"></td>
+                                <td>
+                                    <!--操作按钮-->
+                                    <div style="margin: -5px 0 -5px 0">
+                                        <!--修改按钮-->
+                                        <span class="">
+                                         <!--修改按钮-->
+                                         <a id="modal-1" th:href="@{'#' + ${department.departmentId}}" role="button"
+                                            class="btn btn-info btn-sm" data-toggle="modal">
+                                             <span class="glyphicon glyphicon-file"></span>
+                                             修改
+                                         </a>
+                                            <!--遮罩窗体-->
+                                         <div class="modal fade" th:id="${department.departmentId}" role="dialog"
+                                              aria-labelledby="myModalLabel" aria-hidden="true">
+                                             <div class="modal-dialog">
+                                                 <div class="modal-content">
+                                                     <form role="form" method="post" th:action="@{${url} + '/update'}">
+                                                         <div class="modal-header">
+                                                             <h4 class="modal-title" id="myModalLabel"
+                                                                 style="color: steelblue">
+                                                                 修改部门
+                                                             </h4>
+                                                             <button type="button" class="close" data-dismiss="modal"
+                                                                     aria-hidden="true">×</button>
+                                                         </div>
+                                                         <div class="modal-body" style="font-size: 15px">
+                                                             <div class="form-group">
+                                                                 <input type="hidden" class="form-control"
+                                                                        name="departmentId"
+                                                                        th:value="${department.departmentId}">
+                                                             </div>
+                                                             <div class="form-group">
+                                                                 <label>部门名称</label>
+                                                                 <input type="text" class="form-control"
+                                                                        name="departmentName" required="" autofocus=""
+                                                                        th:value="${department.departmentName}">
+                                                             </div>
+                                                             <div class="form-group">
+                                                                 <label>部门备注</label>
+                                                                 <input type="text" class="form-control"
+                                                                        name="note" required=""
+                                                                        th:value="${department.note}">
+                                                             </div>
+                                                         </div>
+                                                         <div class="modal-footer form-group">
+                                                             <button type="button" class="btn btn-default"
+                                                                     data-dismiss="modal">关闭</button>
+                                                             <button type="submit"
+                                                                     class="btn btn-primary">保存</button>
+                                                         </div>
+                                                     </form>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                         </span>
+                                            <!--删除按钮-->
+                                            <span class="">
+                                             <a class="btn btn-danger btn-sm"
+                                                th:href="@{${url} + '/delete?departmentId=' + ${department.departmentId}}">
+                                                 <span class="glyphicon glyphicon-trash"></span>
+                                                 删除
+                                             </a>
+                                         </span>
+                                    </div>
+                                </td>
+                            </div>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <!--分页-->
+                    <div class="pagination" th:replace="pagination::pagination"></div>
+                </div>
+            </div>
+
+            <div class="col-md-3 column">
+                <!--新增部门表单-->
+                <div style="margin: 25px 20px 0px 10px">
+                    <form class="form-horizontal" role="form" method="post" th:action="@{${url} + '/insert'}">
+                        <div class="form-group">
+                            <label>部门名称</label>
+                            <input type="text" class="form-control" name="departmentName" required="" autofocus="">
+                        </div>
+                        <div class="form-group">
+                            <label>部门备注</label>
+                            <input type="text" class="form-control" name="note" required="">
+                        </div>
+                        <div class="form-group" style="margin-top: 30px">
+                            <button type="submit" class="btn btn-success btn-block">新增部门</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

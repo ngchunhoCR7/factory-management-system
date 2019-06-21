@@ -1,6 +1,11 @@
 package factory.management.system.project.entity;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.thymeleaf.util.DateUtils;
+
 import java.util.Date;
+import java.util.Locale;
 import javax.persistence.*;
 
 @Table(name = "t_car")
@@ -22,10 +27,10 @@ public class Car {
     private Integer carSize;
 
     @Column(name = "car_register_date")
-    private Date carRegisterDate;
+    private String carRegisterDate;
 
     @Column(name = "car_insurance_date")
-    private Date carInsuranceDate;
+    private String carInsuranceDate;
 
     @Column(name = "car_registration")
     private String carRegistration;
@@ -106,28 +111,28 @@ public class Car {
     /**
      * @return car_register_date
      */
-    public Date getCarRegisterDate() {
+    public String getCarRegisterDate() {
         return carRegisterDate;
     }
 
     /**
      * @param carRegisterDate
      */
-    public void setCarRegisterDate(Date carRegisterDate) {
+    public void setCarRegisterDate(String carRegisterDate) {
         this.carRegisterDate = carRegisterDate;
     }
 
     /**
      * @return car_insurance_date
      */
-    public Date getCarInsuranceDate() {
+    public String getCarInsuranceDate() {
         return carInsuranceDate;
     }
 
     /**
      * @param carInsuranceDate
      */
-    public void setCarInsuranceDate(Date carInsuranceDate) {
+    public void setCarInsuranceDate(String carInsuranceDate) {
         this.carInsuranceDate = carInsuranceDate;
     }
 

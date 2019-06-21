@@ -8,6 +8,8 @@ import factory.management.system.project.utils.MyDruid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * GroupController
  *
@@ -20,17 +22,20 @@ import org.springframework.stereotype.Service;
 public class GroupService {
     
     @Autowired
-    private GroupMapper GroupMapper;
+    private GroupMapper groupMapper;
+
+    public List<Group> groupList() {
+        return groupMapper.selectAll();
+    }
 
     /**
      * 获取组别列表
      *
-     * @param pageSizeInfo
      * @return
      */
     public PageInfo<Group> getGroups(PageSizeInfo pageSizeInfo) {
         // 分页查询
-        return (PageInfo<Group>) MyDruid.of(GroupMapper).retrieve(new PageSizeInfo());
+        return (PageInfo<Group>) MyDruid.of(groupMapper).retrieve(pageSizeInfo);
     }
 
     /**
@@ -40,7 +45,7 @@ public class GroupService {
      * @return
      */
     public Group getGroup(Integer GroupId) {
-        return (Group) MyDruid.of(GroupMapper).retrieve(GroupId);
+        return (Group) MyDruid.of(groupMapper).retrieve(GroupId);
     }
 
     /**
@@ -49,7 +54,7 @@ public class GroupService {
      * @param Group
      */
     public void insertGroup(Group Group) {
-        MyDruid.of(GroupMapper).insert(Group);
+        MyDruid.of(groupMapper).insert(Group);
     }
 
     /**
@@ -58,7 +63,7 @@ public class GroupService {
      * @param Group
      */
     public void updateGroup(Group Group) {
-        MyDruid.of(GroupMapper).update(Group);
+        MyDruid.of(groupMapper).update(Group);
     }
 
     /**
@@ -67,6 +72,6 @@ public class GroupService {
      * @param GroupId
      */
     public void deleteGroup(Integer GroupId) {
-        MyDruid.of(GroupMapper).delete(GroupId);
+        MyDruid.of(groupMapper).delete(GroupId);
     }
 }

@@ -30,7 +30,7 @@ public class EmployeeRecordService {
      */
     public PageInfo<EmployeeRecord> getEmployeeRecords(PageSizeInfo pageSizeInfo) {
         // 分页查询
-        return (PageInfo<EmployeeRecord>) MyDruid.of(EmployeeRecordMapper).retrieve(new PageSizeInfo());
+        return (PageInfo<EmployeeRecord>) MyDruid.of(EmployeeRecordMapper).retrieve(pageSizeInfo);
     }
 
     /**

@@ -40,7 +40,7 @@ public class MyDruid {
      */
     public PageInfo<?> retrieve(PageSizeInfo pageSizeInfo) {
         // 初始化分页
-        MyUtils.Page.initPaging(pageSizeInfo);
+        MyUtils.PageUtils.initPaging(pageSizeInfo);
         // 获取分页后的数据
         List<?> list = mapper.selectAll();
         // 获取分页信息
@@ -60,6 +60,25 @@ public class MyDruid {
      */
     public Object retrieve(Object key) {
         return mapper.selectByPrimaryKey(key);
+    }
+
+    /**
+     * 查询方法
+     *
+     * @return
+     */
+    public PageInfo<?> retrieveInfo(PageSizeInfo pageSizeInfo) {
+        // 初始化分页
+        MyUtils.PageUtils.initPaging(pageSizeInfo);
+        // 获取分页后的数据
+        List<?> list = mapper.selectInfo();
+        // 获取分页信息
+        PageInfo<?> pageInfo = new PageInfo<>(list);
+        // 设置末页停留防止跳转至首页
+        if (pageInfo.getNextPage() == 0) {
+            pageInfo.setNextPage(pageInfo.getNavigateLastPage());
+        }
+        return pageInfo;
     }
 
     /**

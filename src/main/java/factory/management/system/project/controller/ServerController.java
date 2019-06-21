@@ -1,9 +1,14 @@
 package factory.management.system.project.controller;
 
-import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.PageInfo;
 import factory.management.system.project.entity.Admin;
+import factory.management.system.project.entity.Department;
 import factory.management.system.project.entity.Employee;
+import factory.management.system.project.entity.Group;
 import factory.management.system.project.service.AdminService;
+import factory.management.system.project.service.DepartmentService;
+import factory.management.system.project.service.EmployeeService;
+import factory.management.system.project.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,9 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * ServerController
@@ -32,7 +35,8 @@ public class ServerController {
 
     @RequestMapping("/index")
     public String index() {
-        return "index";
+        // 重定向到员工管理首页
+        return "redirect:/server/employee/index";
     }
 
     @RequestMapping("/login")
@@ -81,14 +85,13 @@ public class ServerController {
     @ResponseBody
     @PostMapping(value = "/tologin")
     public boolean tologin(Admin admin, String remember/*, HttpServletResponse response*/) {
-//        System.out.println(remember);
-        if ("remember-me".equals(remember)) {
+        /*if ("remember-me".equals(remember)) {
             // 转化为json字符串
             String adminJson = JSON.toJSONString(admin);
-            /*// 保存在cookie中
+            // 保存在cookie中
             Cookie cookie = new Cookie("remember", adminJson);
-            response.addCookie(cookie);*/
-        }
+            response.addCookie(cookie);
+        }*/
 
         return adminService.login(admin);
     }

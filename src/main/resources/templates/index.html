@@ -17,6 +17,8 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
@@ -61,14 +63,14 @@
 </head>
 <body>
 <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="https://getbootstrap.com/docs/4.3/examples/dashboard/#"
-       style="font-size: 20px">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" th:href="@{/server/index}"
+       style="padding-top: 15px; font-size: 20px">
         车厂管理系统
     </a>
     <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-            <a class="nav-link" href="https://getbootstrap.com/docs/4.3/examples/dashboard/#">退出</a>
+            <a class="nav-link" th:href="@{/server/login}">退出</a>
         </li>
     </ul>
 </nav>
@@ -77,9 +79,9 @@
     <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
             <div class="sidebar-sticky">
-                <ul class="nav flex-column">
+                <ul class="nav flex-column" style="margin-top: 20px">
                     <li class="nav-item">
-                        <a class="nav-link active" href="https://getbootstrap.com/docs/4.3/examples/dashboard/#">
+                        <a class="nav-link active" th:href="@{/server/employee/index}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                  stroke-linejoin="round" class="feather feather-home">
@@ -90,7 +92,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://getbootstrap.com/docs/4.3/examples/dashboard/#">
+                        <a class="nav-link" th:href="@{/server/department/index}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                  stroke-linejoin="round" class="feather feather-users">
@@ -103,7 +105,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://getbootstrap.com/docs/4.3/examples/dashboard/#">
+                        <a class="nav-link" th:href="@{/server/group/index}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                  stroke-linejoin="round" class="feather feather-users">
@@ -116,7 +118,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://getbootstrap.com/docs/4.3/examples/dashboard/#">
+                        <a class="nav-link" th:href="@{/server/car/index}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                  stroke-linejoin="round" class="feather feather-shopping-cart">
@@ -128,7 +130,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://getbootstrap.com/docs/4.3/examples/dashboard/#">
+                        <a class="nav-link" th:href="@{/server/driver/index}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                  stroke-linejoin="round" class="feather feather-shopping-cart">
@@ -140,7 +142,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://getbootstrap.com/docs/4.3/examples/dashboard/#">
+                        <a class="nav-link" th:href="@{/server/line/index}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                  stroke-linejoin="round" class="feather feather-layers">
@@ -152,7 +154,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://getbootstrap.com/docs/4.3/examples/dashboard/#">
+                        <a class="nav-link" th:href="@{/server/station/index}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                  stroke-linejoin="round" class="feather feather-layers">
@@ -164,7 +166,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://getbootstrap.com/docs/4.3/examples/dashboard/#">
+                        <a class="nav-link" th:href="@{/server/schedule/index}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none"
                                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -181,8 +183,7 @@
 
                 <h5 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                     <span>Record & Statistics</span>
-                    <a class="d-flex align-items-center text-muted"
-                       href="https://getbootstrap.com/docs/4.3/examples/dashboard/#">
+                    <a class="d-flex align-items-center text-muted" href="#">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                              class="feather feather-plus-circle">
@@ -194,7 +195,7 @@
                 </h5>
                 <ul class="nav flex-column mb-2">
                     <li class="nav-item">
-                        <a class="nav-link" href="https://getbootstrap.com/docs/4.3/examples/dashboard/#">
+                        <a class="nav-link" th:href="@{/server/employeeRecord/index}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                  stroke-linejoin="round" class="feather feather-file">
@@ -205,7 +206,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://getbootstrap.com/docs/4.3/examples/dashboard/#">
+                        <a class="nav-link" th:href="@{/server/scheduleRecord/index}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                  stroke-linejoin="round" class="feather feather-file">
@@ -216,7 +217,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://getbootstrap.com/docs/4.3/examples/dashboard/#">
+                        <a class="nav-link" th:href="@{/server/lineStatistics/index}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                  stroke-linejoin="round" class="feather feather-bar-chart-2">
@@ -228,7 +229,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://getbootstrap.com/docs/4.3/examples/dashboard/#">
+                        <a class="nav-link" th:href="@{/server/stationStatistics/index}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                  stroke-linejoin="round" class="feather feather-bar-chart-2">
@@ -255,219 +256,48 @@
                     <div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
                 </div>
             </div>
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-
-                <div class="col-md-12 column">
-                    <div class="page-header">
-                        <h1>
-                            员工管理
-                            <small>管理员工信息</small>
-                        </h1>
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+                <div class="col-md-12" style="margin-top: -100px">
+                    <!--主要部分-->
+                    <div th:switch="${url}">
+                        <div th:case="'/server/employee'">
+                            <div class="mainText col-md-12" th:replace="/server/employee::container"></div>
+                        </div>
+                        <div th:case="'/server/employeeRecord'">
+                            <div class="mainText col-md-12" th:replace="/server/employeeRecord::container"></div>
+                        </div>
+                        <div th:case="'/server/department'">
+                            <div class="mainText col-md-12" th:replace="/server/department::container"></div>
+                        </div>
+                        <div th:case="'/server/group'">
+                            <div class="mainText col-md-12" th:replace="/server/group::container"></div>
+                        </div>
+                        <div th:case="'/server/car'">
+                            <div class="mainText col-md-12" th:replace="/server/car::container"></div>
+                        </div>
+                        <div th:case="'/server/driver'">
+                            <div class="mainText col-md-12" th:replace="/server/driver::container"></div>
+                        </div>
+                        <div th:case="'/server/line'">
+                            <div class="mainText col-md-12" th:replace="/server/line::container"></div>
+                        </div>
+                        <div th:case="'/server/station'">
+                            <div class="mainText col-md-12" th:replace="/server/station::container"></div>
+                        </div>
+                        <div th:case="'/server/lineStation'">
+                            <div class="mainText col-md-12" th:replace="/server/lineStation::container"></div>
+                        </div>
+                        <div th:case="'/server/schedule'">
+                            <div class="mainText col-md-12" th:replace="/server/schedule::container"></div>
+                        </div>
+                        <div th:case="'/server/scheduleRecord'">
+                            <div class="mainText col-md-12" th:replace="/server/scheduleRecord::container"></div>
+                        </div>
+                        <div th:case="*">
+                            <div class="mainText col-md-12" th:replace="/server/employee::container"></div>
+                        </div>
                     </div>
                 </div>
-
-                <div class="col-md-9 column">
-                    <div>
-                        <!--搜索框-->
-                        <form class="form-horizontal" role="form">
-                            <div class="form-group col-sm-4">
-                                <input type="text" class="form-control"/>
-                            </div>
-                            <div class="form-group col-sm-2" style="margin-left: 20px">
-                                <button type="submit" class="btn btn-success">查询班号</button>
-                            </div>
-                        </form>
-                    </div>
-
-                    <div>
-                        <!--表格-->
-                        <table class="table table-bordered table-hover">
-                            <!--表头-->
-                            <thead>
-                            <tr>
-                                <th>
-                                    班级编号
-                                </th>
-                                <th>
-                                    班级名称
-                                </th>
-                                <th>
-                                    班级人数
-                                </th>
-                                <th>
-                                    开课时间
-                                </th>
-                                <th>
-                                    结课时间
-                                </th>
-                                <th>
-                                    班级类型
-                                </th>
-                                <th style="width: 145px">
-                                    操作
-                                </th>
-                            </tr>
-                            </thead>
-                            <!--表格内容-->
-                            <tbody>
-                            <tr class="success" th:each="tclass:${pageList.list}">
-                                <!--遍历列表-->
-                                <div th:object="${tclass}">
-                                    <td th:text="*{classId}"></td>
-                                    <td th:text="*{className}"></td>
-                                    <td th:text="*{classSize}"></td>
-                                    <td th:text="*{classStartTime}"></td>
-                                    <td th:text="*{classEndTime}"></td>
-                                    <td th:text="*{classType}"></td>
-                                    <td>
-                                        <!--操作按钮-->
-                                        <div style="margin: -5px 0 -5px 0">
-                                            <!--修改按钮-->
-                                            <span class="">
-                                                    <!--修改按钮-->
-                                                    <a id="modal-1" th:href="@{'#' + ${tclass.classId}}" role="button"
-                                                       class="btn btn-info btn-sm" data-toggle="modal">
-                                                        <span class="glyphicon glyphicon-file"></span>
-                                                        修改
-                                                    </a>
-                                                <!--遮罩窗体-->
-                                                    <div class="modal fade" th:id="${tclass.classId}" role="dialog"
-                                                         aria-labelledby="myModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                <form role="form" th:action="@{/teacher/upadateclass}"
-                                                                      th:object="${tclass}">
-                                                                    <div class="modal-header">
-                                                                        <button type="button" class="close"
-                                                                                data-dismiss="modal" aria-hidden="true">×</button>
-                                                                        <h4 class="modal-title" id="myModalLabel"
-                                                                            style="color: steelblue">
-                                                                            修改班级
-                                                                        </h4>
-                                                                    </div>
-                                                                    <div class="modal-body" style="font-size: 15px">
-                                                                        <div class="form-group">
-                                                                            <input type="hidden" class="form-control"
-                                                                                   name="classId" th:value="*{classId}">
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label>班级名称</label>
-                                                                            <input type="text" class="form-control"
-                                                                                   name="className"
-                                                                                   th:value="*{className}">
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label>班级人数</label>
-                                                                            <input type="number" class="form-control"
-                                                                                   name="classSize"
-                                                                                   th:value="*{classSize}">
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label>开课时间</label>
-                                                                            <input type="date" class="form-control"
-                                                                                   name="classStartTime"
-                                                                                   th:value="*{classStartTime}">
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label>结课时间</label>
-                                                                            <input type="date" class="form-control"
-                                                                                   name="classEndTime"
-                                                                                   th:value="*{classEndTime}">
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <label>班级类型</label>
-                                                                            <input type="text" class="form-control"
-                                                                                   name="classType"
-                                                                                   th:value="*{classType}">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="modal-footer form-group">
-                                                                        <button type="button" class="btn btn-default"
-                                                                                data-dismiss="modal">关闭</button>
-                                                                        <button type="submit"
-                                                                                class="btn btn-primary">保存</button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </span>
-
-                                            <!--删除按钮-->
-                                            <span class="">
-                                            <a class="btn btn-danger btn-sm"
-                                               th:href="@{'/teacher/deleteclass?classId=' + ${tclass.classId}}">
-                                                <span class="glyphicon glyphicon-trash"></span>
-                                                删除
-                                            </a>
-                                        </span>
-                                        </div>
-                                    </td>
-                                </div>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div>
-                        <!--分页-->
-                        <ul class="pagination">
-                            <li>
-                                <a href="#">首页</a>
-                            </li>
-                            <li>
-                                <a href="#">&lt;</a>
-                            </li>
-                            <li>
-                                <a href="#">1</a>
-                            </li>
-                            <li>
-                                <a href="#">2</a>
-                            </li>
-                            <li>
-                                <a href="#">3</a>
-                            </li>
-                            <li>
-                                <a href="#">4</a>
-                            </li>
-                            <li>
-                                <a href="#">5</a>
-                            </li>
-                            <li>
-                                <a href="#">&gt;</a>
-                            </li>
-                            <li>
-                                <a href="#">尾页</a>
-                            </li>
-                        </ul>
-
-                        <!--                    <div class="pagination" th:replace="pagination::pagination"></div>-->
-                    </div>
-                </div>
-
-                <div class="col-md-3 column">
-                    <!--上车记录表单-->
-                    <div style="margin: 45px 20px 0px 10px">
-                        <form class="form-horizontal" role="form" method="post" th:action="@{/client/aboard}">
-                            <div class="form-group">
-                                <label>员工编号</label>
-                                <input type="number" class="form-control" name="employeeId">
-                            </div>
-                            <div class="form-group">
-                                <label>排班编号</label>
-                                <input type="number" class="form-control" name="scheduleId">
-                            </div>
-                            <div class="form-group">
-                                <label>站点编号</label>
-                                <input type="number" class="form-control" name="stationId">
-                            </div>
-                            <div class="form-group" style="margin-top: 30px">
-                                <button type="submit" class="btn btn-success btn-block">打卡乘车</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
             </div>
         </main>
     </div>

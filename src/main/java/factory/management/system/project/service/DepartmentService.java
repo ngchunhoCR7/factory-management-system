@@ -8,6 +8,8 @@ import factory.management.system.project.utils.MyDruid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * DepartmentController
  *
@@ -20,17 +22,25 @@ import org.springframework.stereotype.Service;
 public class DepartmentService {
     
     @Autowired
-    private DepartmentMapper DepartmentMapper;
+    private DepartmentMapper departmentMapper;
 
     /**
      * 获取部门列表
      *
-     * @param pageSizeInfo
+     * @return
+     */
+    public List<Department> departmentList() {
+        return departmentMapper.selectAll();
+    }
+
+    /**
+     * 获取部门列表
+     *
      * @return
      */
     public PageInfo<Department> getDepartments(PageSizeInfo pageSizeInfo) {
         // 分页查询
-        return (PageInfo<Department>) MyDruid.of(DepartmentMapper).retrieve(new PageSizeInfo());
+        return (PageInfo<Department>) MyDruid.of(departmentMapper).retrieve(pageSizeInfo);
     }
 
     /**
@@ -40,7 +50,7 @@ public class DepartmentService {
      * @return
      */
     public Department getDepartment(Integer departmentId) {
-        return (Department) MyDruid.of(DepartmentMapper).retrieve(departmentId);
+        return (Department) MyDruid.of(departmentMapper).retrieve(departmentId);
     }
 
     /**
@@ -49,7 +59,7 @@ public class DepartmentService {
      * @param department
      */
     public void insertDepartment(Department department) {
-        MyDruid.of(DepartmentMapper).insert(department);
+        MyDruid.of(departmentMapper).insert(department);
     }
 
     /**
@@ -58,7 +68,7 @@ public class DepartmentService {
      * @param department
      */
     public void updateDepartment(Department department) {
-        MyDruid.of(DepartmentMapper).update(department);
+        MyDruid.of(departmentMapper).update(department);
     }
 
     /**
@@ -67,6 +77,6 @@ public class DepartmentService {
      * @param departmentId
      */
     public void deleteDepartment(Integer departmentId) {
-        MyDruid.of(DepartmentMapper).delete(departmentId);
+        MyDruid.of(departmentMapper).delete(departmentId);
     }
 }

@@ -1,18 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="factory.management.system.project.mapper.CarMapper">
-  <resultMap id="BaseResultMap" type="factory.management.system.project.entity.Car">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="car_id" jdbcType="INTEGER" property="carId" />
-    <result column="car_name" jdbcType="VARCHAR" property="carName" />
-    <result column="car_number" jdbcType="VARCHAR" property="carNumber" />
-    <result column="car_brand" jdbcType="VARCHAR" property="carBrand" />
-    <result column="car_size" jdbcType="INTEGER" property="carSize" />
-    <result column="car_register_date" jdbcType="DATE" property="carRegisterDate" />
-    <result column="car_insurance_date" jdbcType="DATE" property="carInsuranceDate" />
-    <result column="car_registration" jdbcType="VARCHAR" property="carRegistration" />
-    <result column="driver_id" jdbcType="INTEGER" property="driverId" />
-  </resultMap>
+    <resultMap id="BaseResultMap" type="factory.management.system.project.entity.Car">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="car_id" jdbcType="INTEGER" property="carId"/>
+        <result column="car_name" jdbcType="VARCHAR" property="carName"/>
+        <result column="car_number" jdbcType="VARCHAR" property="carNumber"/>
+        <result column="car_brand" jdbcType="VARCHAR" property="carBrand"/>
+        <result column="car_size" jdbcType="INTEGER" property="carSize"/>
+        <result column="car_register_date" jdbcType="DATE" property="carRegisterDate"/>
+        <result column="car_insurance_date" jdbcType="DATE" property="carInsuranceDate"/>
+        <result column="car_registration" jdbcType="VARCHAR" property="carRegistration"/>
+        <result column="driver_id" jdbcType="INTEGER" property="driverId"/>
+    </resultMap>
+
+    <resultMap id="CarDriverResultMap" type="factory.management.system.project.pojo.CarInfo">
+        <id column="car_id" jdbcType="INTEGER" property="carId"/>
+        <result column="car_name" jdbcType="VARCHAR" property="carName"/>
+        <result column="car_number" jdbcType="VARCHAR" property="carNumber"/>
+        <result column="car_brand" jdbcType="VARCHAR" property="carBrand"/>
+        <result column="car_size" jdbcType="INTEGER" property="carSize"/>
+        <result column="car_register_date" jdbcType="DATE" property="carRegisterDate"/>
+        <result column="car_insurance_date" jdbcType="DATE" property="carInsuranceDate"/>
+        <result column="car_registration" jdbcType="VARCHAR" property="carRegistration"/>
+        <result column="driver_id" jdbcType="INTEGER" property="driverId"/>
+
+        <association property="driver" javaType="factory.management.system.project.entity.Driver">
+            <id column="driver_id" jdbcType="INTEGER" property="driverId"/>
+            <result column="driver_name" jdbcType="VARCHAR" property="driverName"/>
+            <result column="driver_license" jdbcType="VARCHAR" property="driverLicense"/>
+        </association>
+    </resultMap>
+
+    <select id="selectInfo" resultMap="CarDriverResultMap">
+        select c.car_id, c.car_name, c.car_number, c.car_brand,
+                c.car_size, c.car_register_date, c.car_insurance_date,
+                c.car_registration, c.driver_id, d.driver_name, d.driver_license
+        from `t_car` c
+        left join `t_driver` d on c.driver_id = d.driver_id
+        order by c.car_id
+    </select>
+
+    <select id="selectInfoById" resultMap="CarDriverResultMap">
+        select c.car_id, c.car_name, c.car_number, c.car_brand,
+                c.car_size, c.car_register_date, c.car_insurance_date,
+                c.car_registration, c.driver_id, d.driver_name, d.driver_license
+        from `t_car` c left join `t_driver` d
+        on c.driver_id = d.driver_id
+    </select>
+
 </mapper>

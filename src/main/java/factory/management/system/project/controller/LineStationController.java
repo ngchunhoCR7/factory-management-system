@@ -32,7 +32,7 @@ public class LineStationController {
         model.addAttribute("pageList", pageInfo);
         // 设置分页跳转链接
         model.addAttribute("url", "/server/lineStation/select");
-        return "page/lineStation";
+        return "server/lineStation";
     }
 
     @RequestMapping(value = "/insert", method = RequestMethod.POST)

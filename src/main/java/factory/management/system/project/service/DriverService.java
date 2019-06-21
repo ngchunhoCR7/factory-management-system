@@ -3,10 +3,13 @@ package factory.management.system.project.service;
 import com.github.pagehelper.PageInfo;
 import factory.management.system.project.entity.Driver;
 import factory.management.system.project.mapper.DriverMapper;
+import factory.management.system.project.pojo.CarInfo;
 import factory.management.system.project.pojo.PageSizeInfo;
 import factory.management.system.project.utils.MyDruid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * DriverController
@@ -20,7 +23,16 @@ import org.springframework.stereotype.Service;
 public class DriverService {
     
     @Autowired
-    private DriverMapper DriverMapper;
+    private DriverMapper driverMapper;
+
+    /**
+     * 获取司机列表
+     *
+     * @return
+     */
+    public List<Driver> driverList() {
+        return driverMapper.selectAll();
+    }
 
     /**
      * 获取司机列表
@@ -30,7 +42,7 @@ public class DriverService {
      */
     public PageInfo<Driver> getDrivers(PageSizeInfo pageSizeInfo) {
         // 分页查询
-        return (PageInfo<Driver>) MyDruid.of(DriverMapper).retrieve(new PageSizeInfo());
+        return (PageInfo<Driver>) MyDruid.of(driverMapper).retrieve(pageSizeInfo);
     }
 
     /**
@@ -40,7 +52,7 @@ public class DriverService {
      * @return
      */
     public Driver getDriver(Integer DriverId) {
-        return (Driver) MyDruid.of(DriverMapper).retrieve(DriverId);
+        return (Driver) MyDruid.of(driverMapper).retrieve(DriverId);
     }
 
     /**
@@ -49,7 +61,7 @@ public class DriverService {
      * @param Driver
      */
     public void insertDriver(Driver Driver) {
-        MyDruid.of(DriverMapper).insert(Driver);
+        MyDruid.of(driverMapper).insert(Driver);
     }
 
     /**
@@ -58,7 +70,7 @@ public class DriverService {
      * @param Driver
      */
     public void updateDriver(Driver Driver) {
-        MyDruid.of(DriverMapper).update(Driver);
+        MyDruid.of(driverMapper).update(Driver);
     }
 
     /**
@@ -67,6 +79,6 @@ public class DriverService {
      * @param DriverId
      */
     public void deleteDriver(Integer DriverId) {
-        MyDruid.of(DriverMapper).delete(DriverId);
+        MyDruid.of(driverMapper).delete(DriverId);
     }
 }

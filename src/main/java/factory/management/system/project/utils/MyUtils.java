@@ -5,8 +5,6 @@ import factory.management.system.project.pojo.PageSizeInfo;
 import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -24,7 +22,8 @@ public class MyUtils {
     /**
      * 自定义分页工具类
      */
-    public static class Page {
+    public static class PageUtils {
+
         /**
          * 默认分页页码
          */
@@ -33,12 +32,12 @@ public class MyUtils {
         /**
          * 默认分页条数
          */
-        private static int PAGE_SIZE = 5;
+        private static int PAGE_SIZE = 10;
 
-        static Page of (Integer pageNum, Integer pageSize) {
-            Page.PAGE_NUM = pageNum;
-            Page.PAGE_SIZE = pageSize;
-            return new Page();
+        static PageUtils of (Integer pageNum, Integer pageSize) {
+            PageUtils.PAGE_NUM = pageNum;
+            PageUtils.PAGE_SIZE = pageSize;
+            return new PageUtils();
         }
 
         /**
@@ -97,46 +96,80 @@ public class MyUtils {
     }
 
     /**
-     * 获取当前 Date
-     *
-     * @return
+     * 自定义时间工具类
      */
-    public static Date getDate() {
-        // 获取当前时间
-        LocalDateTime localDateTime = LocalDateTime.now();
-        // 获取时间地区ID
-        ZoneId zoneId = ZoneId.systemDefault();
-        return Date.from(localDateTime.atZone(zoneId).toInstant());
-    }
+    public static class DateUtils {
 
-    /**
-     * 获取当前 Datetime
-     *
-     * @return
-     */
-    public static Date getDateTime() {
-        // 设置时区
-        return Date.from(LocalDateTime.now().toInstant(ZoneOffset.of("+8")));
-    }
+        /**
+         * 获取当前 Date
+         *
+         * @return
+         */
+        public static Date getDate() {
+            // 获取当前时间
+            LocalDateTime localDateTime = LocalDateTime.now();
+            // 获取时间地区ID
+            ZoneId zoneId = ZoneId.systemDefault();
+            return Date.from(localDateTime.atZone(zoneId).toInstant());
+        }
 
-    /**
-     * 获取当前 Date 的 String
-     *
-     * @return
-     */
-    public static String getDateString() {
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        return LocalDate.now().format(df);
-    }
+        /**
+         * 获取当前 Datetime
+         *
+         * @return
+         */
+        public static Date getDateTime() {
+            // 设置时区
+            return Date.from(LocalDateTime.now().toInstant(ZoneOffset.of("+8")));
+        }
 
-    /**
-     * 获取当前 Datetime 的 String
-     *
-     * @return
-     */
-    public static String getDateTimeString() {
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        return LocalDateTime.now().format(df);
+        /**
+         * 获取当前 Date 的 String
+         *
+         * @return
+         */
+        public static String getDateString() {
+            DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            return LocalDate.now().format(df);
+        }
+
+        /**
+         * 获取当前 Datetime 的 String
+         *
+         * @return
+         */
+        public static String getDateTimeString() {
+            DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            return LocalDateTime.now().format(df);
+        }
+
+        /**
+         *
+         * @param date
+         * @return
+         */
+        public static LocalDate setDate (Date date) {
+            // 获取date实例
+            Instant instant = date.toInstant();
+            // 设置时区
+            ZoneId zone = ZoneId.systemDefault();
+            // 转为LocalDateTime
+            LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, zone);
+            return localDateTime.toLocalDate();
+        }
+
+        /**
+         *
+         * @param date
+         * @return
+         */
+        public static LocalDateTime setDateTime (Date date) {
+            // 获取date实例
+            Instant instant = date.toInstant();
+            // 设置时区
+            ZoneId zone = ZoneId.systemDefault();
+            return LocalDateTime.ofInstant(instant, zone);
+        }
     }
 
     /**
