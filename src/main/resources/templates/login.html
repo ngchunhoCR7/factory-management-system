@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<!-- saved from url=(0051)https://getbootstrap.com/docs/4.3/examples/sign-in/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <title>服务器登录</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/sign-in/">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/login_files/bootstrap.min.css}" rel="stylesheet"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <!-- Custom styles for this template -->
+    <link th:href="@{/login_files/signin.css}" rel="stylesheet">
+</head>
+<body class="text-center">
+<form class="form-signin" id="loginform" name="loginform">
+    <img class="mb-4" th:src="@{/login_files/bootstrap-solid.svg}" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">管理员请登录</h1>
+    <label for="inputText" class="sr-only">登录账号</label>
+    <input type="text" id="inputText" name="adminName" class="form-control" placeholder="登录账号"
+           required="" autofocus=""> <!--th:value="${admin.adminName}"-->
+    <label for="inputPassword" class="sr-only">登录密码</label>
+    <input type="password" id="inputPassword" name="adminPassword" class="form-control"
+           placeholder="登录密码" required=""> <!--th:value="${admin.adminPassword}"-->
+    <div class="checkbox mb-3">
+        <label>
+            <input type="checkbox" value="remember-me" name="remember"> 记住账号
+        </label>
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="button" onclick="myCheck()">登录</button>
+    <p class="mt-5 mb-3 text-muted">Copyright © 2019 车厂管理系统</p>
+</form>
+<script>
+    function login() {
+        $.ajax({
+            url: "http://localhost:9000/server/tologin",
+            async: true,
+            type: "POST",
+            dataType: "json",
+            data: $("#loginform").serialize(),
+            // 成功后开启模态框
+            success: function (res) {
+                if (res == true) {
+                    window.location.replace("http://localhost:9000/server/index");
+                } else {
+                    alert("账号或密码错误！");
+                }
+            },
+            error: function () {
+                // window.location.href("http://localhost:9000/server/error");
+                alert("异常！");
+            },
+        });
+    }
+</script>
+<script type="text/javascript">
+    function myCheck() {
+        for (var i = 0; i < document.loginform.elements.length - 1; i++) {
+            if (document.loginform.elements[i].value == "") {
+                alert("表单输入不能为空！");
+                document.loginform.elements[i].focus();
+                // return false;
+            }
+        }
+        // return true;
+        login();
+    }
+</script>
+</body>
+</html>
