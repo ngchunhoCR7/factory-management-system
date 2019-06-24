@@ -6,7 +6,6 @@ import factory.management.system.project.mapper.CarMapper;
 import factory.management.system.project.pojo.CarInfo;
 import factory.management.system.project.pojo.PageSizeInfo;
 import factory.management.system.project.utils.MyDruid;
-import factory.management.system.project.utils.MyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +24,15 @@ public class CarService {
     
     @Autowired
     private CarMapper carMapper;
+
+    /**
+     * 获取车辆列表
+     *
+     * @return
+     */
+    public List<Car> carList() {
+        return carMapper.selectAll();
+    }
 
     /**
      * 获取车辆信息列表

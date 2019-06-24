@@ -6,6 +6,7 @@ import factory.management.system.project.entity.Station;
 import factory.management.system.project.pojo.LineInfo;
 import factory.management.system.project.pojo.PageSizeInfo;
 import factory.management.system.project.service.LineService;
+import factory.management.system.project.service.LineStationService;
 import factory.management.system.project.service.StationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,6 +37,9 @@ public class LineController {
     @Autowired
     private StationService stationService;
 
+    @Autowired
+    private LineStationService lineStationService;
+
     @GetMapping(value = "/index")
     public String getLines(PageSizeInfo pageSizeInfo, Model model) {
         // 获取分页查询列表
@@ -53,7 +57,7 @@ public class LineController {
             return "redirect:/server/line/index";
         } else {
             LineInfo LineInfo = lineService.getInfoById(lineId);
-
+            // 添加到链表
             List<LineInfo> list = new ArrayList<LineInfo>() {
                 {
                     add(LineInfo);

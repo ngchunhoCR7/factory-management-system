@@ -14,8 +14,8 @@
             <div class="col-md-12 column">
                 <div class="page-header">
                     <h2>
-                        线路管理
-                        <small>管理线路信息</small>
+                        员工记录
+                        <small>管理员工记录</small>
                     </h2>
                 </div>
             </div>
@@ -25,10 +25,10 @@
                     <!--搜索框-->
                     <form class="form-horizontal" role="form" th:action="@{${url} + '/select'}">
                         <div class="form-group col-sm-3">
-                            <input type="number" class="form-control" name="lineId" placeholder="请输入线路编号"/>
+                            <input type="number" class="form-control" name="employeeRecordId" placeholder="请输入员工记录编号"/>
                         </div>
                         <div class="form-group col-sm-2" style="margin-left: 20px">
-                            <button type="submit" class="btn btn-success">查询线路</button>
+                            <button type="submit" class="btn btn-success">查询员工记录</button>
                         </div>
                     </form>
                 </div>
@@ -40,22 +40,13 @@
                         <thead>
                         <tr>
                             <th>
-                                线路编号
+                                员工记录编号
                             </th>
                             <th>
-                                线路名称
+                                员工记录名称
                             </th>
                             <th>
-                                始发站编号
-                            </th>
-                            <th>
-                                始发站名称
-                            </th>
-                            <th>
-                                终点站编号
-                            </th>
-                            <th>
-                                终点站名称
+                                员工记录备注
                             </th>
                             <th style="width: 145px">
                                 操作
@@ -64,35 +55,26 @@
                         </thead>
                         <!--表格内容-->
                         <tbody>
-                        <tr class="warning" th:each="lineInfo:${pageList.list}">
+                        <tr class="warning" th:each="employeeRecord:${pageList.list}">
                             <!--遍历列表-->
-                            <!--/*@thymesVar id="lineInfo" type="factory.management.system.project.pojo.LineInfo"*/-->
-                            <div th:object="${lineInfo}">
-                                <td th:text="*{lineId}"></td>
-                                <td th:text="*{lineName}"></td>
-                                <td th:text="*{departureId}"></td>
-                                <td th:text="*{departure.stationName}"></td>
-                                <td th:text="*{destinationId}"></td>
-<!--                                <td th:text="*{destination.stationName}"></td>-->
-                                <div th:each="station:${stationList}">
-                                    <!--/*@thymesVar id="station" type="factory.management.system.project.entity.Station"*/-->
-                                    <div th:if="${station.stationId} == ${lineInfo.destinationId}">
-                                        <td th:text="${station.stationName}"></td>
-                                    </div>
-                                </div>
+                            <!--/*@thymesVar id="employeeRecord" type="factory.management.system.project.pojo.employeeRecord"*/-->
+                            <div th:object="${employeeRecord}">
+                                <td th:text="*{employeeRecordId}"></td>
+                                <td th:text="*{employeeRecordName}"></td>
+                                <td th:text="*{note}"></td>
                                 <td>
                                     <!--操作按钮-->
                                     <div style="margin: -5px 0 -5px 0">
                                         <!--修改按钮-->
                                         <span class="">
                                          <!--修改按钮-->
-                                         <a id="modal-1" th:href="@{'#' + ${lineInfo.lineId}}" role="button"
+                                         <a id="modal-1" th:href="@{'#' + ${employeeRecord.employeeRecordId}}" role="button"
                                             class="btn btn-info btn-sm" data-toggle="modal">
                                              <span class="glyphicon glyphicon-file"></span>
                                              修改
                                          </a>
                                             <!--遮罩窗体-->
-                                         <div class="modal fade" th:id="${lineInfo.lineId}" role="dialog"
+                                         <div class="modal fade" th:id="${employeeRecord.employeeRecordId}" role="dialog"
                                               aria-labelledby="myModalLabel" aria-hidden="true">
                                              <div class="modal-dialog">
                                                  <div class="modal-content">
@@ -100,7 +82,7 @@
                                                          <div class="modal-header">
                                                              <h4 class="modal-title" id="myModalLabel"
                                                                  style="color: steelblue">
-                                                                 修改线路
+                                                                 修改员工记录
                                                              </h4>
                                                              <button type="button" class="close" data-dismiss="modal"
                                                                      aria-hidden="true">×</button>
@@ -108,38 +90,21 @@
                                                          <div class="modal-body" style="font-size: 15px">
                                                              <div class="form-group">
                                                                  <input type="hidden" class="form-control"
-                                                                        name="lineId"
-                                                                        th:value="${lineInfo.lineId}">
+                                                                        name="employeeRecordId"
+                                                                        th:value="${employeeRecord.employeeRecordId}">
                                                              </div>
                                                              <div class="form-group">
-                                                                 <label>线路名称</label>
+                                                                 <label>员工记录名称</label>
                                                                  <input type="text" class="form-control"
-                                                                        name="lineName" required="" autofocus=""
-                                                                        th:value="${lineInfo.lineName}">
-                                                             </div>
-                                                             <!--/*@thymesVar id="station" type="factory.management.system.project.entity.Station"*/-->
-                                                             <div class="form-group">
-                                                                <label>始发站</label>
-                                                                <select class="form-control" name="departureId" required="">
-                                                                    <div th:each="station:${stationList}"
-                                                                         th:object="${station}">
-                                                                        <option th:text="*{stationName}"
-                                                                                th:value="*{stationId}"
-                                                                                th:selected="(${station.stationId} == ${lineInfo.departure.stationId})"></option>
-                                                                    </div>
-                                                                </select>
+                                                                        name="employeeRecordName" required="" autofocus=""
+                                                                        th:value="${employeeRecord.employeeRecordName}">
                                                              </div>
                                                              <div class="form-group">
-                                                                <label>终点站</label>
-                                                                <select class="form-control" name="destinationId" required="">
-                                                                    <div th:each="station:${stationList}"
-                                                                         th:object="${station}">
-                                                                        <option th:text="*{stationName}"
-                                                                                th:value="*{stationId}"
-                                                                                th:selected="(${station.stationId} == ${lineInfo.destination.stationId})"></option>
-                                                                    </div>
-                                                                </select>
-                                                            </div>
+                                                                 <label>员工记录备注</label>
+                                                                 <input type="text" class="form-control"
+                                                                        name="note" required=""
+                                                                        th:value="${employeeRecord.note}">
+                                                             </div>
                                                          </div>
                                                          <div class="modal-footer form-group">
                                                              <button type="button" class="btn btn-default"
@@ -152,10 +117,10 @@
                                              </div>
                                          </div>
                                          </span>
-                                        <!--删除按钮-->
-                                        <span class="">
+                                            <!--删除按钮-->
+                                            <span class="">
                                              <a class="btn btn-danger btn-sm"
-                                                th:href="@{${url} + '/delete?lineId=' + ${lineInfo.lineId}}">
+                                                th:href="@{${url} + '/delete?employeeRecordId=' + ${employeeRecord.employeeRecordId}}">
                                                  <span class="glyphicon glyphicon-trash"></span>
                                                  删除
                                              </a>
@@ -173,32 +138,19 @@
             </div>
 
             <div class="col-md-3 column">
-                <!--新增线路表单-->
+                <!--新增员工记录表单-->
                 <div style="margin: 25px 20px 0px 10px">
                     <form class="form-horizontal" role="form" method="post" th:action="@{${url} + '/insert'}">
                         <div class="form-group">
-                            <label>线路名称</label>
-                            <input type="text" class="form-control" name="lineName" required="" autofocus="">
-                        </div>
-                        <!--/*@thymesVar id="station" type="factory.management.system.project.entity.Station"*/-->
-                        <div class="form-group">
-                            <label>始发站</label>
-                            <select class="form-control" name="departureId" required="">
-                                <div th:each="station:${stationList}" th:object="${station}">
-                                    <option th:text="*{stationName}" th:value="*{stationId}"></option>
-                                </div>
-                            </select>
+                            <label>员工记录名称</label>
+                            <input type="text" class="form-control" name="employeeRecordName" required="" autofocus="">
                         </div>
                         <div class="form-group">
-                            <label>终点站</label>
-                            <select class="form-control" name="destinationId" required="">
-                                <div th:each="station:${stationList}" th:object="${station}">
-                                    <option th:text="*{stationName}" th:value="*{stationId}"></option>
-                                </div>
-                            </select>
+                            <label>员工记录备注</label>
+                            <input type="text" class="form-control" name="note" required="">
                         </div>
                         <div class="form-group" style="margin-top: 30px">
-                            <button type="submit" class="btn btn-success btn-block">新增线路</button>
+                            <button type="submit" class="btn btn-success btn-block">新增员工记录</button>
                         </div>
                     </form>
                 </div>

@@ -2,7 +2,9 @@ package factory.management.system.project.service;
 
 import com.github.pagehelper.PageInfo;
 import factory.management.system.project.entity.Line;
+import factory.management.system.project.entity.LineStation;
 import factory.management.system.project.mapper.LineMapper;
+import factory.management.system.project.mapper.LineStationMapper;
 import factory.management.system.project.pojo.LineInfo;
 import factory.management.system.project.pojo.PageSizeInfo;
 import factory.management.system.project.utils.MyDruid;
@@ -24,6 +26,9 @@ public class LineService {
     
     @Autowired
     private LineMapper lineMapper;
+
+    @Autowired
+    private LineStationMapper lineStationMapper;
 
     /**
      * 获取线路信息列表
@@ -50,8 +55,8 @@ public class LineService {
      *
      * @return
      */
-    public LineInfo getInfoById(Integer LineId) {
-        return lineMapper.selectInfoById(LineId);
+    public LineInfo getInfoById(Integer lineId) {
+        return lineMapper.selectInfoById(lineId);
     }
 
     /**
@@ -68,37 +73,51 @@ public class LineService {
     /**
      * 获取单个线路
      *
-     * @param LineId
+     * @param lineId
      * @return
      */
-    public Line getLine(Integer LineId) {
-        return (Line) MyDruid.of(lineMapper).retrieve(LineId);
+    public Line getLine(Integer lineId) {
+        return (Line) MyDruid.of(lineMapper).retrieve(lineId);
     }
 
     /**
      * 新增线路
      *
-     * @param Line
+     * @param line
      */
-    public void insertLine(Line Line) {
-        MyDruid.of(lineMapper).insert(Line);
+    public void insertLine(Line line) {
+        // 设置始发站
+        LineStation departure = new LineStation();
+        departure.setLineId(line.getLineId());
+        departure.setStationId(line.getDepartureId());
+        departure.setSequence(1);
+        // 设置始发站
+        LineStation destination = new LineStation();
+        destination.setLineId(line.getLineId());
+        destination.setStationId(line.getDestinationId());
+        destination.setSequence(0);
+        // 插入到站线表中
+        MyDruid.of(lineStationMapper).insert(departure);
+        MyDruid.of(lineStationMapper).insert(destination);
+        // 新增线路
+        MyDruid.of(lineMapper).insert(line);
     }
 
     /**
      * 更新线路
      *
-     * @param Line
+     * @param line
      */
-    public void updateLine(Line Line) {
-        MyDruid.of(lineMapper).update(Line);
+    public void updateLine(Line line) {
+        MyDruid.of(lineMapper).update(line);
     }
 
     /**
      * 删除线路
      *
-     * @param LineId
+     * @param lineId
      */
-    public void deleteLine(Integer LineId) {
-        MyDruid.of(lineMapper).delete(LineId);
+    public void deleteLine(Integer lineId) {
+        MyDruid.of(lineMapper).delete(lineId);
     }
 }

@@ -1,9 +1,11 @@
 package factory.management.system.project.controller;
 
 import com.github.pagehelper.PageInfo;
+import factory.management.system.project.entity.Car;
 import factory.management.system.project.entity.Line;
 import factory.management.system.project.entity.Schedule;
 import factory.management.system.project.pojo.PageSizeInfo;
+import factory.management.system.project.service.CarService;
 import factory.management.system.project.service.LineService;
 import factory.management.system.project.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,9 @@ public class ScheduleController {
 
     @Autowired
     private LineService lineService;
+    
+    @Autowired
+    private CarService carService;
 
     @GetMapping(value = "/index")
     public String getschedules(PageSizeInfo pageSizeInfo, Model model) {
@@ -52,7 +57,7 @@ public class ScheduleController {
             return "redirect:/server/schedule/index";
         } else {
             Schedule schedule = scheduleService.getSchedule(scheduleId);
-
+            // 添加到链表
             List<Schedule> list = new ArrayList<Schedule>() {
                 {
                     add(schedule);
@@ -76,6 +81,9 @@ public class ScheduleController {
         // 获取线路列表
         List<Line> lines = lineService.lineList();
         model.addAttribute("lineList", lines);
+        // 获取线车辆列表
+        List<Car> cars = carService.carList();
+        model.addAttribute("carList", cars);
         // 设置分页跳转链接
         model.addAttribute("url", "/server/schedule");
     }
@@ -83,7 +91,7 @@ public class ScheduleController {
     @PostMapping(value = "/insert")
     public String insertSchedule(Schedule schedule) {
         // 修改保存时间的字符串
-        schedule.setDepartureTime(schedule.getDepartureTime().replace('T', ' '));
+//        schedule.setDepartureTime(schedule.getDepartureTime().replace('T', ' '));
         scheduleService.insertSchedule(schedule);
         return "redirect:/server/schedule/index";
     }

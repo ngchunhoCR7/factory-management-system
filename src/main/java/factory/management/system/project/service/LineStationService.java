@@ -23,7 +23,7 @@ public class LineStationService {
     private LineStationMapper LineStationMapper;
 
     /**
-     * 获取车辆列表
+     * 获取站线列表
      *
      * @param pageSizeInfo
      * @return
@@ -34,7 +34,7 @@ public class LineStationService {
     }
 
     /**
-     * 获取单个车辆
+     * 获取单个站线
      *
      * @param LineStationId
      * @return
@@ -44,7 +44,7 @@ public class LineStationService {
     }
 
     /**
-     * 新增车辆
+     * 新增站线
      *
      * @param LineStation
      */
@@ -53,7 +53,7 @@ public class LineStationService {
     }
 
     /**
-     * 更新车辆
+     * 更新站线
      *
      * @param LineStation
      */
@@ -62,7 +62,7 @@ public class LineStationService {
     }
 
     /**
-     * 删除车辆
+     * 删除站线
      *
      * @param LineStationId
      */

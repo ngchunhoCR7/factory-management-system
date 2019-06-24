@@ -8,5 +8,6 @@
     <id column="ls_id" jdbcType="INTEGER" property="lsId" />
     <result column="line_id" jdbcType="INTEGER" property="lineId" />
     <result column="station_id" jdbcType="INTEGER" property="stationId" />
+    <result column="sequence" jdbcType="INTEGER" property="sequence" />
   </resultMap>
 </mapper>

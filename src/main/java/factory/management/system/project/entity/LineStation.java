@@ -15,6 +15,11 @@ public class LineStation {
     private Integer stationId;
 
     /**
+     * 站线顺序
+     */
+    private Integer sequence;
+
+    /**
      * @return ls_id
      */
     public Integer getLsId() {
@@ -54,5 +59,19 @@ public class LineStation {
      */
     public void setStationId(Integer stationId) {
         this.stationId = stationId;
+    }
+
+    /**
+     * @return sequence
+     */
+    public Integer getSequence() {
+        return sequence;
+    }
+
+    /**
+     * @param sequence
+     */
+    public void setSequence(Integer sequence) {
+        this.sequence = sequence;
     }
 }
