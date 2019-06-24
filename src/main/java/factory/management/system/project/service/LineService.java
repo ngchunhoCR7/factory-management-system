@@ -3,10 +3,13 @@ package factory.management.system.project.service;
 import com.github.pagehelper.PageInfo;
 import factory.management.system.project.entity.Line;
 import factory.management.system.project.mapper.LineMapper;
+import factory.management.system.project.pojo.LineInfo;
 import factory.management.system.project.pojo.PageSizeInfo;
 import factory.management.system.project.utils.MyDruid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * LineController
@@ -20,7 +23,36 @@ import org.springframework.stereotype.Service;
 public class LineService {
     
     @Autowired
-    private LineMapper LineMapper;
+    private LineMapper lineMapper;
+
+    /**
+     * 获取线路信息列表
+     *
+     * @return
+     */
+    public List<Line> lineList() {
+        return lineMapper.selectAll();
+    }
+
+    /**
+     * 获取线路信息列表
+     *
+     * @param pageSizeInfo
+     * @return
+     */
+    public PageInfo<LineInfo> getLsInfo(PageSizeInfo pageSizeInfo) {
+        // 分页查询
+        return (PageInfo<LineInfo>) MyDruid.of(lineMapper).retrieveInfo(pageSizeInfo);
+    }
+
+    /**
+     * 获取单个线路信息
+     *
+     * @return
+     */
+    public LineInfo getInfoById(Integer LineId) {
+        return lineMapper.selectInfoById(LineId);
+    }
 
     /**
      * 获取线路列表
@@ -30,7 +62,7 @@ public class LineService {
      */
     public PageInfo<Line> getLines(PageSizeInfo pageSizeInfo) {
         // 分页查询
-        return (PageInfo<Line>) MyDruid.of(LineMapper).retrieve(pageSizeInfo);
+        return (PageInfo<Line>) MyDruid.of(lineMapper).retrieve(pageSizeInfo);
     }
 
     /**
@@ -40,7 +72,7 @@ public class LineService {
      * @return
      */
     public Line getLine(Integer LineId) {
-        return (Line) MyDruid.of(LineMapper).retrieve(LineId);
+        return (Line) MyDruid.of(lineMapper).retrieve(LineId);
     }
 
     /**
@@ -49,7 +81,7 @@ public class LineService {
      * @param Line
      */
     public void insertLine(Line Line) {
-        MyDruid.of(LineMapper).insert(Line);
+        MyDruid.of(lineMapper).insert(Line);
     }
 
     /**
@@ -58,7 +90,7 @@ public class LineService {
      * @param Line
      */
     public void updateLine(Line Line) {
-        MyDruid.of(LineMapper).update(Line);
+        MyDruid.of(lineMapper).update(Line);
     }
 
     /**
@@ -67,6 +99,6 @@ public class LineService {
      * @param LineId
      */
     public void deleteLine(Integer LineId) {
-        MyDruid.of(LineMapper).delete(LineId);
+        MyDruid.of(lineMapper).delete(LineId);
     }
 }

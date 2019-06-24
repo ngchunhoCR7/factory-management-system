@@ -49,6 +49,7 @@
                 c.car_registration, c.driver_id, d.driver_name, d.driver_license
         from `t_car` c left join `t_driver` d
         on c.driver_id = d.driver_id
+        where c.car_id = #{carId}
     </select>
 
 </mapper>

@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 public class ScheduleService {
     
     @Autowired
-    private ScheduleMapper ScheduleMapper;
+    private ScheduleMapper scheduleMapper;
 
     /**
      * 获取排班列表
@@ -30,7 +30,7 @@ public class ScheduleService {
      */
     public PageInfo<Schedule> getSchedules(PageSizeInfo pageSizeInfo) {
         // 分页查询
-        return (PageInfo<Schedule>) MyDruid.of(ScheduleMapper).retrieve(pageSizeInfo);
+        return (PageInfo<Schedule>) MyDruid.of(scheduleMapper).retrieve(pageSizeInfo);
     }
 
     /**
@@ -40,7 +40,7 @@ public class ScheduleService {
      * @return
      */
     public Schedule getSchedule(Integer ScheduleId) {
-        return (Schedule) MyDruid.of(ScheduleMapper).retrieve(ScheduleId);
+        return (Schedule) MyDruid.of(scheduleMapper).retrieve(ScheduleId);
     }
 
     /**
@@ -49,7 +49,7 @@ public class ScheduleService {
      * @param Schedule
      */
     public void insertSchedule(Schedule Schedule) {
-        MyDruid.of(ScheduleMapper).insert(Schedule);
+        MyDruid.of(scheduleMapper).insert(Schedule);
     }
 
     /**
@@ -58,7 +58,7 @@ public class ScheduleService {
      * @param Schedule
      */
     public void updateSchedule(Schedule Schedule) {
-        MyDruid.of(ScheduleMapper).update(Schedule);
+        MyDruid.of(scheduleMapper).update(Schedule);
     }
 
     /**
@@ -67,6 +67,6 @@ public class ScheduleService {
      * @param ScheduleId
      */
     public void deleteSchedule(Integer ScheduleId) {
-        MyDruid.of(ScheduleMapper).delete(ScheduleId);
+        MyDruid.of(scheduleMapper).delete(ScheduleId);
     }
 }

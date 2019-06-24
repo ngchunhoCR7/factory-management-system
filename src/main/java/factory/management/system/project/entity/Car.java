@@ -1,12 +1,8 @@
 package factory.management.system.project.entity;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.thymeleaf.util.DateUtils;
-
-import java.util.Date;
-import java.util.Locale;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Table(name = "t_car")
 public class Car {

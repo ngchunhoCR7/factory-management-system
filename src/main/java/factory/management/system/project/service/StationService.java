@@ -8,6 +8,8 @@ import factory.management.system.project.utils.MyDruid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * StationController
  *
@@ -20,7 +22,16 @@ import org.springframework.stereotype.Service;
 public class StationService {
     
     @Autowired
-    private StationMapper StationMapper;
+    private StationMapper stationMapper;
+
+    /**
+     * 获取站点列表
+     *
+     * @return
+     */
+    public List<Station> stationList() {
+        return stationMapper.selectAll();
+    }
 
     /**
      * 获取站点列表
@@ -30,7 +41,7 @@ public class StationService {
      */
     public PageInfo<Station> getStations(PageSizeInfo pageSizeInfo) {
         // 分页查询
-        return (PageInfo<Station>) MyDruid.of(StationMapper).retrieve(pageSizeInfo);
+        return (PageInfo<Station>) MyDruid.of(stationMapper).retrieve(pageSizeInfo);
     }
 
     /**
@@ -40,7 +51,7 @@ public class StationService {
      * @return
      */
     public Station getStation(Integer StationId) {
-        return (Station) MyDruid.of(StationMapper).retrieve(StationId);
+        return (Station) MyDruid.of(stationMapper).retrieve(StationId);
     }
 
     /**
@@ -49,7 +60,7 @@ public class StationService {
      * @param Station
      */
     public void insertStation(Station Station) {
-        MyDruid.of(StationMapper).insert(Station);
+        MyDruid.of(stationMapper).insert(Station);
     }
 
     /**
@@ -58,7 +69,7 @@ public class StationService {
      * @param Station
      */
     public void updateStation(Station Station) {
-        MyDruid.of(StationMapper).update(Station);
+        MyDruid.of(stationMapper).update(Station);
     }
 
     /**
@@ -67,6 +78,6 @@ public class StationService {
      * @param StationId
      */
     public void deleteStation(Integer StationId) {
-        MyDruid.of(StationMapper).delete(StationId);
+        MyDruid.of(stationMapper).delete(StationId);
     }
 }
