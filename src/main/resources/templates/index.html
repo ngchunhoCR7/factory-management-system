@@ -231,18 +231,6 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/server/lineStatistics/index}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                 stroke-linejoin="round" class="feather feather-bar-chart-2">
-                                <line x1="18" y1="20" x2="18" y2="10"></line>
-                                <line x1="12" y1="20" x2="12" y2="4"></line>
-                                <line x1="6" y1="20" x2="6" y2="14"></line>
-                            </svg>
-                            线路统计
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" th:href="@{/server/stationStatistics/index}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -252,6 +240,18 @@
                                 <line x1="6" y1="20" x2="6" y2="14"></line>
                             </svg>
                             站点统计
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/server/lineStatistics/index}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-bar-chart-2">
+                                <line x1="18" y1="20" x2="18" y2="10"></line>
+                                <line x1="12" y1="20" x2="12" y2="4"></line>
+                                <line x1="6" y1="20" x2="6" y2="14"></line>
+                            </svg>
+                            线路统计
                         </a>
                     </li>
                 </ul>
@@ -307,11 +307,11 @@
                         <div th:case="'/server/scheduleRecord'">
                             <div class="mainText col-md-12" th:replace="/server/scheduleRecord::container"></div>
                         </div>
-                        <div th:case="'/server/lineStatistics'">
-                            <div class="mainText col-md-12" th:replace="/server/lineStatistics::container"></div>
-                        </div>
                         <div th:case="'/server/stationStatistics'">
                             <div class="mainText col-md-12" th:replace="/server/stationStatistics::container"></div>
+                        </div>
+                        <div th:case="'/server/lineStatistics'">
+                            <div class="mainText col-md-12" th:replace="/server/lineStatistics::container"></div>
                         </div>
                         <div th:case="*">
                             <div class="mainText col-md-12" th:replace="/server/employee::container"></div>

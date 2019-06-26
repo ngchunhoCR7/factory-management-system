@@ -31,6 +31,14 @@
                             <button type="submit" class="btn btn-success">查询组别</button>
                         </div>
                     </form>
+                    <!--导出按钮-->
+                    <span class="pull-right">
+                         <a class="btn btn-primary" style="width: 145px"
+                            th:href="@{${url} + '/export'}">
+                             <span class="glyphicon glyphicon-list-alt"></span>
+                             &nbsp;&nbsp;导出到Excel
+                         </a>
+                    </span>
                 </div>
 
                 <div>
