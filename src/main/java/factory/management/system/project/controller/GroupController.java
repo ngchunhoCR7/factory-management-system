@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,6 +63,11 @@ public class GroupController {
             model.addAttribute("url", "/server/group");
             return "index";
         }
+    }
+
+    @GetMapping("/export")
+    public void toExport(HttpServletResponse response) {
+        groupService.exportExcel(response);
     }
 
     @PostMapping("/insert")

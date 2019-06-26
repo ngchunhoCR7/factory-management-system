@@ -5,6 +5,7 @@ import factory.management.system.project.mapper.LineMapper;
 import factory.management.system.project.pojo.LineInfo;
 import factory.management.system.project.pojo.PageSizeInfo;
 import factory.management.system.project.utils.MyDruid;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ public class LineServiceTest {
     private LineMapper lineMapper;
 
     @Test
+    @Ignore
     public void getLsInfo() {
         // 分页查询
         PageInfo<LineInfo> pageInfo = (PageInfo<LineInfo>) MyDruid.of(lineMapper).retrieveInfo(new PageSizeInfo());

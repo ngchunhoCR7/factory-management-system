@@ -2,12 +2,26 @@ package factory.management.system.project.utils;
 
 import com.github.pagehelper.PageHelper;
 import factory.management.system.project.pojo.PageSizeInfo;
+import factory.management.system.project.utils.exportUtils.FieldEntity;
+import factory.management.system.project.utils.exportUtils.FieldsCollector;
+import org.apache.poi.xssf.streaming.SXSSFRow;
+import org.apache.poi.xssf.streaming.SXSSFSheet;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.InvocationTargetException;
+import java.net.URLEncoder;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * MyUtils
@@ -34,7 +48,7 @@ public class MyUtils {
          */
         private static int PAGE_SIZE = 10;
 
-        static PageUtils of (Integer pageNum, Integer pageSize) {
+        static PageUtils of(Integer pageNum, Integer pageSize) {
             PageUtils.PAGE_NUM = pageNum;
             PageUtils.PAGE_SIZE = pageSize;
             return new PageUtils();
@@ -65,7 +79,7 @@ public class MyUtils {
             int pageNum;
 
             // 判断是否为空
-            if(isEmpty(pageSizeInfo.getPageNum())) {
+            if (isEmpty(pageSizeInfo.getPageNum())) {
                 pageNum = PAGE_NUM;
             } else {
                 pageNum = pageSizeInfo.getPageNum();
@@ -85,7 +99,7 @@ public class MyUtils {
             int pageSize;
 
             // 判断是否为空
-            if(isEmpty(pageSizeInfo.getPageSize())) {
+            if (isEmpty(pageSizeInfo.getPageSize())) {
                 pageSize = PAGE_SIZE;
             } else {
                 pageSize = pageSizeInfo.getPageSize();
@@ -144,11 +158,10 @@ public class MyUtils {
         }
 
         /**
-         *
          * @param date
          * @return
          */
-        public static LocalDate setDate (Date date) {
+        public static LocalDate setDate(Date date) {
             // 获取date实例
             Instant instant = date.toInstant();
             // 设置时区
@@ -159,11 +172,10 @@ public class MyUtils {
         }
 
         /**
-         *
          * @param date
          * @return
          */
-        public static LocalDateTime setDateTime (Date date) {
+        public static LocalDateTime setDateTime(Date date) {
             // 获取date实例
             Instant instant = date.toInstant();
             // 设置时区
@@ -210,4 +222,69 @@ public class MyUtils {
         return StringUtils.isEmpty(object);
     }
 
+    /**
+     * 导出表格工具类
+     *
+     * @param response HttpServletResponse响应报文
+     * @param fileName 文件名
+     * @param dataList 数据库的数据列表
+     */
+    public static void exportExcel(HttpServletResponse response, String fileName, List<?> dataList) {
+        // 创建poi导出数据对象
+        SXSSFWorkbook workbook = new SXSSFWorkbook();
+        // 创建sheet页
+        SXSSFSheet sheet = workbook.createSheet();
+        // 创建表头
+        SXSSFRow headRow = sheet.createRow(0);
+
+        try {
+            // 解析一个实体数据
+            Map<String, FieldEntity> map = FieldsCollector.getFileds(dataList.get(0));
+            Set<String> set = map.keySet();
+            // 创建表头信息
+            int index = 0;
+            for (String string : set) {
+                headRow.createCell(index++).setCellValue(string);
+            }
+
+            // 遍历数据库数据
+            for (Object object : dataList) {
+                // 创建数据行
+                SXSSFRow dataRow = sheet.createRow(sheet.getLastRowNum() + 1);
+                // 解析一个实体数据
+                map = FieldsCollector.getFileds(object);
+                // 对实体进行遍历
+                index = 0;
+                for (String string : map.keySet()) {
+                    // 填充数据
+                    dataRow.createCell(index++).setCellValue(map.get(string).getValue().toString());
+                }
+            }
+
+            // 下载导出
+            String filename = fileName;
+            // 设置响应头信息
+            response.setCharacterEncoding("UTF-8");
+            response.setContentType("application/vnd.ms-excel");
+            // 设置成xlsx格式
+            response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(filename + ".xlsx", "UTF-8"));
+            // 创建输出流
+            ServletOutputStream outputStream = response.getOutputStream();
+            // 写入数据
+            workbook.write(outputStream);
+            // 关闭流
+            outputStream.close();
+            workbook.close();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

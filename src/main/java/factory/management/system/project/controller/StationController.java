@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,6 +89,11 @@ public class StationController {
         modelMap.addAttribute("stationName", station.getStationName());
         modelMap.addAttribute("stationLocation", station.getStationLocation());
         return "redirect:/server/station/index";
+    }
+
+    @GetMapping("/export")
+    public void toExport(HttpServletResponse response) {
+        stationService.exportExcel(response);
     }
 
     @PostMapping("/insert")

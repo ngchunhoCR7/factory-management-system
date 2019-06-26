@@ -1,5 +1,8 @@
 package factory.management.system.project.pojo;
 
+import factory.management.system.project.entity.Car;
+import factory.management.system.project.entity.Line;
+import factory.management.system.project.entity.Schedule;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,20 +16,10 @@ import lombok.NoArgsConstructor;
  */
 @NoArgsConstructor
 @Data
-public class ScheduleInfo {
+public class ScheduleInfo extends Schedule {
 
-    private Integer scheduleId;
+    private Line line;
 
-    private String scheduleDate;
-
-    private Integer lineId;
-
-    private String departureName;
-
-    private Integer carId;
-
-    private String driverName;
-
-    private String departureTime;
+    private Car car;
 
 }

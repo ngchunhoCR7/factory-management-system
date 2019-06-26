@@ -5,8 +5,12 @@ import factory.management.system.project.entity.Schedule;
 import factory.management.system.project.mapper.ScheduleMapper;
 import factory.management.system.project.pojo.PageSizeInfo;
 import factory.management.system.project.utils.MyDruid;
+import factory.management.system.project.utils.MyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * ScheduleController
@@ -21,6 +25,19 @@ public class ScheduleService {
     
     @Autowired
     private ScheduleMapper scheduleMapper;
+
+    /**
+     * 导出成Excel表格
+     *
+     * @param response
+     */
+    public void exportExcel(HttpServletResponse response) {
+        MyUtils.exportExcel(response, "排班信息表", scheduleList());
+    }
+
+    public List<Schedule> scheduleList() {
+        return scheduleMapper.selectAll();
+    }
 
     /**
      * 获取排班列表

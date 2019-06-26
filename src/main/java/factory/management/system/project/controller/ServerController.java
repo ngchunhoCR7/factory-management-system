@@ -1,22 +1,13 @@
 package factory.management.system.project.controller;
 
-import com.github.pagehelper.PageInfo;
 import factory.management.system.project.entity.Admin;
-import factory.management.system.project.entity.Department;
 import factory.management.system.project.entity.Employee;
-import factory.management.system.project.entity.Group;
 import factory.management.system.project.service.AdminService;
-import factory.management.system.project.service.DepartmentService;
-import factory.management.system.project.service.EmployeeService;
-import factory.management.system.project.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.List;
 
 /**
  * ServerController
@@ -84,7 +75,7 @@ public class ServerController {
 
     @ResponseBody
     @PostMapping(value = "/tologin")
-    public boolean tologin(Admin admin, String remember/*, HttpServletResponse response*/) {
+    public boolean tologin(Admin admin/*, String remember, HttpServletResponse response*/) {
         /*if ("remember-me".equals(remember)) {
             // 转化为json字符串
             String adminJson = JSON.toJSONString(admin);

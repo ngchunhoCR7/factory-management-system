@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +54,7 @@ public class CarController {
             return "redirect:/server/car/index";
         } else {
             CarInfo carInfo = carService.getInfoById(carId);
-
+            // 添加到链表
             List<CarInfo> list = new ArrayList<CarInfo>() {
                 {
                     add(carInfo);
@@ -79,6 +80,11 @@ public class CarController {
         model.addAttribute("driverList", drivers);
         // 设置分页跳转链接
         model.addAttribute("url", "/server/car");
+    }
+
+    @GetMapping("/export")
+    public void toExport(HttpServletResponse response) {
+        carService.exportExcel(response);
     }
 
     @PostMapping(value = "/insert")

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,6 +88,11 @@ public class EmployeeController {
         model.addAttribute("groupList", groups);
         // 设置分页跳转链接
         model.addAttribute("url", "/server/employee");
+    }
+
+    @GetMapping("/export")
+    public void toExport(HttpServletResponse response) {
+        employeeService.exportExcel(response);
     }
 
     @PostMapping("/insert")

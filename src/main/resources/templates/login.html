@@ -65,6 +65,7 @@
             // 成功后开启模态框
             success: function (res) {
                 if (res == true) {
+                    console.log(res);
                     window.location.replace("http://localhost:9000/server/index");
                 } else {
                     alert("账号或密码错误！");

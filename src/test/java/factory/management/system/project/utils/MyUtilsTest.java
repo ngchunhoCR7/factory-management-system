@@ -4,12 +4,17 @@ import com.github.pagehelper.PageInfo;
 import factory.management.system.project.entity.Employee;
 import factory.management.system.project.mapper.EmployeeMapper;
 import factory.management.system.project.pojo.PageSizeInfo;
+import factory.management.system.project.utils.exportUtils.FieldEntity;
+import factory.management.system.project.utils.exportUtils.FieldsCollector;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
 
 /**
  * MyUtilsTest
@@ -27,6 +32,7 @@ public class MyUtilsTest {
     private EmployeeMapper employeeMapper;
 
     @Test
+    @Ignore
     public void retrieve() {
         /*// 获取分页后的数据
         List<Entity> list = myCrud.getMapper().selectAll();
@@ -51,10 +57,25 @@ public class MyUtilsTest {
     }
 
     @Test
+    @Ignore
     public void update() {
         Employee employee = new Employee();
         employee.setEmployeeId(1600502102);
         employee.setEmployeeName("吉普森");
         MyDruid.of(employeeMapper).update(employee);
+    }
+
+    @Test
+    public void fieldController() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        Employee employee = new Employee();
+        employee.setEmployeeId(1600502102);
+        employee.setEmployeeName("吉普车");
+        employee.setDepartmentId(1);
+        employee.setGroupId(1);
+
+        Map<String, FieldEntity> map = FieldsCollector.getFileds(employee);
+        for (String string : map.keySet()) {
+            System.out.println(string + " " + map.get(string).getFieldname() + map.get(string).getValue());
+        }
     }
 }

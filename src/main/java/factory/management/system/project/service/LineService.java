@@ -8,9 +8,11 @@ import factory.management.system.project.mapper.LineStationMapper;
 import factory.management.system.project.pojo.LineInfo;
 import factory.management.system.project.pojo.PageSizeInfo;
 import factory.management.system.project.utils.MyDruid;
+import factory.management.system.project.utils.MyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -29,6 +31,15 @@ public class LineService {
 
     @Autowired
     private LineStationMapper lineStationMapper;
+
+    /**
+     * 导出成Excel表格
+     *
+     * @param response
+     */
+    public void exportExcel(HttpServletResponse response) {
+        MyUtils.exportExcel(response, "线路信息表", lineList());
+    }
 
     /**
      * 获取线路信息列表

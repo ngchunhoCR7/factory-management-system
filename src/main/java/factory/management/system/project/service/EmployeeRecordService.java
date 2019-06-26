@@ -5,8 +5,12 @@ import factory.management.system.project.entity.EmployeeRecord;
 import factory.management.system.project.mapper.EmployeeRecordMapper;
 import factory.management.system.project.pojo.PageSizeInfo;
 import factory.management.system.project.utils.MyDruid;
+import factory.management.system.project.utils.MyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * EmployeeRecordController
@@ -20,7 +24,25 @@ import org.springframework.stereotype.Service;
 public class EmployeeRecordService {
     
     @Autowired
-    private EmployeeRecordMapper EmployeeRecordMapper;
+    private EmployeeRecordMapper employeeRecordMapper;
+
+    /**
+     * 导出成Excel表格
+     *
+     * @param response
+     */
+    public void exportExcel(HttpServletResponse response) {
+        MyUtils.exportExcel(response, "员工记录表", employeeRecordList());
+    }
+
+    /**
+     * 获取员工记录列表
+     *
+     * @return
+     */
+    public List<EmployeeRecord> employeeRecordList() {
+        return employeeRecordMapper.selectAll();
+    }
 
     /**
      * 获取员工记录列表
@@ -30,43 +52,43 @@ public class EmployeeRecordService {
      */
     public PageInfo<EmployeeRecord> getEmployeeRecords(PageSizeInfo pageSizeInfo) {
         // 分页查询
-        return (PageInfo<EmployeeRecord>) MyDruid.of(EmployeeRecordMapper).retrieve(pageSizeInfo);
+        return (PageInfo<EmployeeRecord>) MyDruid.of(employeeRecordMapper).retrieve(pageSizeInfo);
     }
 
     /**
      * 获取单个员工记录
      *
-     * @param EmployeeRecordId
+     * @param erId
      * @return
      */
-    public EmployeeRecord getEmployeeRecord(Integer EmployeeRecordId) {
-        return (EmployeeRecord) MyDruid.of(EmployeeRecordMapper).retrieve(EmployeeRecordId);
+    public EmployeeRecord getEmployeeRecord(Integer erId) {
+        return (EmployeeRecord) MyDruid.of(employeeRecordMapper).retrieve(erId);
     }
 
     /**
      * 新增员工记录
      *
-     * @param EmployeeRecord
+     * @param employeeRecord
      */
-    public void insertEmployeeRecord(EmployeeRecord EmployeeRecord) {
-        MyDruid.of(EmployeeRecordMapper).insert(EmployeeRecord);
+    public void insertEmployeeRecord(EmployeeRecord employeeRecord) {
+        MyDruid.of(employeeRecordMapper).insert(employeeRecord);
     }
 
     /**
      * 更新员工记录
      *
-     * @param EmployeeRecord
+     * @param employeeRecord
      */
-    public void updateEmployeeRecord(EmployeeRecord EmployeeRecord) {
-        MyDruid.of(EmployeeRecordMapper).update(EmployeeRecord);
+    public void updateEmployeeRecord(EmployeeRecord employeeRecord) {
+        MyDruid.of(employeeRecordMapper).update(employeeRecord);
     }
 
     /**
      * 删除员工记录
      *
-     * @param EmployeeRecordId
+     * @param erId
      */
-    public void deleteEmployeeRecord(Integer EmployeeRecordId) {
-        MyDruid.of(EmployeeRecordMapper).delete(EmployeeRecordId);
+    public void deleteEmployeeRecord(Integer erId) {
+        MyDruid.of(employeeRecordMapper).delete(erId);
     }
 }

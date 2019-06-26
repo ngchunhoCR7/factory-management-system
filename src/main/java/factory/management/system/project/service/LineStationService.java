@@ -5,8 +5,12 @@ import factory.management.system.project.entity.LineStation;
 import factory.management.system.project.mapper.LineStationMapper;
 import factory.management.system.project.pojo.PageSizeInfo;
 import factory.management.system.project.utils.MyDruid;
+import factory.management.system.project.utils.MyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * LineStationController
@@ -20,7 +24,25 @@ import org.springframework.stereotype.Service;
 public class LineStationService {
     
     @Autowired
-    private LineStationMapper LineStationMapper;
+    private LineStationMapper lineStationMapper;
+
+    /**
+     * 导出成Excel表格
+     *
+     * @param response
+     */
+    public void exportExcel(HttpServletResponse response) {
+        MyUtils.exportExcel(response, "站线信息表", lineStationList());
+    }
+
+    /**
+     * 获取站线列表
+     *
+     * @return
+     */
+    public List<LineStation> lineStationList() {
+        return lineStationMapper.selectAll();
+    }
 
     /**
      * 获取站线列表
@@ -30,43 +52,43 @@ public class LineStationService {
      */
     public PageInfo<LineStation> getLineStations(PageSizeInfo pageSizeInfo) {
         // 分页查询
-        return (PageInfo<LineStation>) MyDruid.of(LineStationMapper).retrieve(pageSizeInfo);
+        return (PageInfo<LineStation>) MyDruid.of(lineStationMapper).retrieve(pageSizeInfo);
     }
 
     /**
      * 获取单个站线
      *
-     * @param LineStationId
+     * @param lsId
      * @return
      */
-    public LineStation getLineStation(Integer LineStationId) {
-        return (LineStation) MyDruid.of(LineStationMapper).retrieve(LineStationId);
+    public LineStation getLineStation(Integer lsId) {
+        return (LineStation) MyDruid.of(lineStationMapper).retrieve(lsId);
     }
 
     /**
      * 新增站线
      *
-     * @param LineStation
+     * @param lineStation
      */
-    public void insertLineStation(LineStation LineStation) {
-        MyDruid.of(LineStationMapper).insert(LineStation);
+    public void insertLineStation(LineStation lineStation) {
+        MyDruid.of(lineStationMapper).insert(lineStation);
     }
 
     /**
      * 更新站线
      *
-     * @param LineStation
+     * @param lineStation
      */
-    public void updateLineStation(LineStation LineStation) {
-        MyDruid.of(LineStationMapper).update(LineStation);
+    public void updateLineStation(LineStation lineStation) {
+        MyDruid.of(lineStationMapper).update(lineStation);
     }
 
     /**
      * 删除站线
      *
-     * @param LineStationId
+     * @param lsId
      */
-    public void deleteLineStation(Integer LineStationId) {
-        MyDruid.of(LineStationMapper).delete(LineStationId);
+    public void deleteLineStation(Integer lsId) {
+        MyDruid.of(lineStationMapper).delete(lsId);
     }
 }

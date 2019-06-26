@@ -20,12 +20,12 @@
                 </div>
             </div>
 
-            <div class="col-md-9 column border-right">
-                <div>
+            <div class="col-md-12 column">
+                <div class="col-md-9" style="margin-left: -15px">
                     <!--搜索框-->
                     <form class="form-horizontal" role="form" th:action="@{${url} + '/select'}">
                         <div class="form-group col-sm-3">
-                            <input type="number" class="form-control" name="employeeRecordId" placeholder="请输入员工记录编号"/>
+                            <input type="number" class="form-control" name="erId" placeholder="请输入员工记录编号"/>
                         </div>
                         <div class="form-group col-sm-2" style="margin-left: 20px">
                             <button type="submit" class="btn btn-success">查询员工记录</button>
@@ -43,10 +43,25 @@
                                 员工记录编号
                             </th>
                             <th>
-                                员工记录名称
+                                员工编号
                             </th>
                             <th>
-                                员工记录备注
+                                员工姓名
+                            </th>
+                            <th>
+                                排班编号
+                            </th>
+                            <th>
+                                站点编号
+                            </th>
+                            <th>
+                                站点名称
+                            </th>
+                            <th>
+                                上车时间
+                            </th>
+                            <th>
+                                乘车状态
                             </th>
                             <th style="width: 145px">
                                 操作
@@ -57,24 +72,39 @@
                         <tbody>
                         <tr class="warning" th:each="employeeRecord:${pageList.list}">
                             <!--遍历列表-->
-                            <!--/*@thymesVar id="employeeRecord" type="factory.management.system.project.pojo.employeeRecord"*/-->
+                            <!--/*@thymesVar id="employeeRecord" type="factory.management.system.project.entity.EmployeeRecord"*/-->
                             <div th:object="${employeeRecord}">
-                                <td th:text="*{employeeRecordId}"></td>
-                                <td th:text="*{employeeRecordName}"></td>
-                                <td th:text="*{note}"></td>
+                                <td th:text="*{erId}"></td>
+                                <td th:text="*{employeeId}"></td>
+                                <div th:each="employee:${employeeList}">
+                                    <!--/*@thymesVar id="employee" type="factory.management.system.project.entity.Employee"*/-->
+                                    <div th:if="${employee.employeeId} == ${employeeRecord.employeeId}">
+                                        <td th:text="${employee.employeeName}"></td>
+                                    </div>
+                                </div>
+                                <td th:text="*{scheduleId}"></td>
+                                <td th:text="*{stationId}"></td>
+                                <div th:each="station:${stationList}">
+                                    <!--/*@thymesVar id="station" type="factory.management.system.project.entity.Station"*/-->
+                                    <div th:if="${station.stationId} == ${employeeRecord.stationId}">
+                                        <td th:text="${station.stationName}"></td>
+                                    </div>
+                                </div>
+                                <td th:text="*{boardingTime}"></td>
+                                <td th:text="*{status}"></td>
                                 <td>
                                     <!--操作按钮-->
                                     <div style="margin: -5px 0 -5px 0">
                                         <!--修改按钮-->
                                         <span class="">
                                          <!--修改按钮-->
-                                         <a id="modal-1" th:href="@{'#' + ${employeeRecord.employeeRecordId}}" role="button"
+                                         <a id="modal-1" th:href="@{'#' + ${employeeRecord.erId}}" role="button"
                                             class="btn btn-info btn-sm" data-toggle="modal">
                                              <span class="glyphicon glyphicon-file"></span>
                                              修改
                                          </a>
                                             <!--遮罩窗体-->
-                                         <div class="modal fade" th:id="${employeeRecord.employeeRecordId}" role="dialog"
+                                         <div class="modal fade" th:id="${employeeRecord.erId}" role="dialog"
                                               aria-labelledby="myModalLabel" aria-hidden="true">
                                              <div class="modal-dialog">
                                                  <div class="modal-content">
@@ -90,20 +120,33 @@
                                                          <div class="modal-body" style="font-size: 15px">
                                                              <div class="form-group">
                                                                  <input type="hidden" class="form-control"
-                                                                        name="employeeRecordId"
-                                                                        th:value="${employeeRecord.employeeRecordId}">
+                                                                        name="erId"
+                                                                        th:value="${employeeRecord.erId}">
                                                              </div>
                                                              <div class="form-group">
-                                                                 <label>员工记录名称</label>
-                                                                 <input type="text" class="form-control"
-                                                                        name="employeeRecordName" required="" autofocus=""
-                                                                        th:value="${employeeRecord.employeeRecordName}">
-                                                             </div>
+                                                                <label>员工编号</label>
+                                                                <input type="number" class="form-control" name="employeeId" required="" autofocus=""
+                                                                        th:value="${employeeRecord.employeeId}">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>排班编号</label>
+                                                                <input type="number" class="form-control" name="scheduleId" required=""
+                                                                        th:value="${employeeRecord.scheduleId}">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>站点名称</label>
+                                                                <select class="form-control" name="stationId" required="">
+                                                                    <!--/*@thymesVar id="station" type="factory.management.system.project.entity.Station"*/-->
+                                                                    <div th:each="station:${stationList}" th:object="${station}">
+                                                                        <option th:text="*{stationName}" th:value="*{stationId}"
+                                                                                th:selected="${station.stationId} == ${employeeRecord.stationId}"></option>
+                                                                    </div>
+                                                                </select>
+                                                            </div>
                                                              <div class="form-group">
-                                                                 <label>员工记录备注</label>
-                                                                 <input type="text" class="form-control"
-                                                                        name="note" required=""
-                                                                        th:value="${employeeRecord.note}">
+                                                                 <label>乘车状态</label>
+                                                                 <input type="text" class="form-control" name="status" required=""
+                                                                        th:value="${employeeRecord.status}">
                                                              </div>
                                                          </div>
                                                          <div class="modal-footer form-group">
@@ -120,7 +163,7 @@
                                             <!--删除按钮-->
                                             <span class="">
                                              <a class="btn btn-danger btn-sm"
-                                                th:href="@{${url} + '/delete?employeeRecordId=' + ${employeeRecord.employeeRecordId}}">
+                                                th:href="@{${url} + '/delete?erId=' + ${employeeRecord.erId}}">
                                                  <span class="glyphicon glyphicon-trash"></span>
                                                  删除
                                              </a>
@@ -137,24 +180,37 @@
                 </div>
             </div>
 
-            <div class="col-md-3 column">
-                <!--新增员工记录表单-->
+            <!--<div class="col-md-3 column">
+                &lt;!&ndash;新增员工记录表单&ndash;&gt;
                 <div style="margin: 25px 20px 0px 10px">
                     <form class="form-horizontal" role="form" method="post" th:action="@{${url} + '/insert'}">
                         <div class="form-group">
-                            <label>员工记录名称</label>
-                            <input type="text" class="form-control" name="employeeRecordName" required="" autofocus="">
+                            <label>员工编号</label>
+                            <input type="number" class="form-control" name="employeeId" required="" autofocus="">
                         </div>
                         <div class="form-group">
-                            <label>员工记录备注</label>
-                            <input type="text" class="form-control" name="note" required="">
+                            <label>排班编号</label>
+                            <input type="number" class="form-control" name="scheduleId" required="">
+                        </div>
+                        <div class="form-group">
+                            <label>站点名称</label>
+                            <select class="form-control" name="stationId" required="">
+                                &lt;!&ndash;/*@thymesVar id="station" type="factory.management.system.project.entity.Station"*/&ndash;&gt;
+                                <div th:each="station:${stationList}" th:object="${station}">
+                                    <option th:text="*{stationName}" th:value="*{stationId}"></option>
+                                </div>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="hidden" class="form-control"
+                                   name="status" value="未乘车">
                         </div>
                         <div class="form-group" style="margin-top: 30px">
                             <button type="submit" class="btn btn-success btn-block">新增员工记录</button>
                         </div>
                     </form>
                 </div>
-            </div>
+            </div>-->
         </div>
     </div>
 </div>

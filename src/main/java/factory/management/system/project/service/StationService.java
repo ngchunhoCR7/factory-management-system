@@ -5,9 +5,11 @@ import factory.management.system.project.entity.Station;
 import factory.management.system.project.mapper.StationMapper;
 import factory.management.system.project.pojo.PageSizeInfo;
 import factory.management.system.project.utils.MyDruid;
+import factory.management.system.project.utils.MyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -23,6 +25,15 @@ public class StationService {
     
     @Autowired
     private StationMapper stationMapper;
+
+    /**
+     * 导出成Excel表格
+     *
+     * @param response
+     */
+    public void exportExcel(HttpServletResponse response) {
+        MyUtils.exportExcel(response, "站点信息表", stationList());
+    }
 
     /**
      * 获取站点列表

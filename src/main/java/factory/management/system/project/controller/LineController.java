@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,6 +84,11 @@ public class LineController {
         model.addAttribute("stationList", stations);
         // 设置分页跳转链接
         model.addAttribute("url", "/server/line");
+    }
+
+    @GetMapping("/export")
+    public void toExport(HttpServletResponse response) {
+        lineService.exportExcel(response);
     }
 
     @PostMapping(value = "/insert")

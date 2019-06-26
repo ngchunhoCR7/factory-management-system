@@ -6,9 +6,11 @@ import factory.management.system.project.mapper.CarMapper;
 import factory.management.system.project.pojo.CarInfo;
 import factory.management.system.project.pojo.PageSizeInfo;
 import factory.management.system.project.utils.MyDruid;
+import factory.management.system.project.utils.MyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -24,6 +26,15 @@ public class CarService {
     
     @Autowired
     private CarMapper carMapper;
+
+    /**
+     * 导出成Excel表格
+     *
+     * @param response
+     */
+    public void exportExcel(HttpServletResponse response) {
+        MyUtils.exportExcel(response, "车辆信息表", carList());
+    }
 
     /**
      * 获取车辆列表
@@ -60,6 +71,7 @@ public class CarService {
      * @param pageSizeInfo
      * @return
      */
+    @Deprecated
     public PageInfo<Car> getCars(PageSizeInfo pageSizeInfo) {
         // 分页查询
         return (PageInfo<Car>) MyDruid.of(carMapper).retrieve(pageSizeInfo);
@@ -71,6 +83,7 @@ public class CarService {
      * @param CarId
      * @return
      */
+    @Deprecated
     public Car getCar(Integer CarId) {
         return (Car) MyDruid.of(carMapper).retrieve(CarId);
     }

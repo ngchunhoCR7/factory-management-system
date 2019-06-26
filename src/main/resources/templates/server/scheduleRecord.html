@@ -14,21 +14,21 @@
             <div class="col-md-12 column">
                 <div class="page-header">
                     <h2>
-                        站线管理
-                        <small>管理站线信息</small>
+                        排班记录
+                        <small>管理排班记录</small>
                     </h2>
                 </div>
             </div>
 
-            <div class="col-md-9 column border-right">
-                <div>
+            <div class="col-md-12 column">
+                <div class="col-md-9" style="margin-left: -15px">
                     <!--搜索框-->
                     <form class="form-horizontal" role="form" th:action="@{${url} + '/select'}">
                         <div class="form-group col-sm-3">
-                            <input type="number" class="form-control" name="lineId" placeholder="请输入站线编号"/>
+                            <input type="number" class="form-control" name="srId" placeholder="请输入排班记录编号"/>
                         </div>
                         <div class="form-group col-sm-2" style="margin-left: 20px">
-                            <button type="submit" class="btn btn-success">查询站线</button>
+                            <button type="submit" class="btn btn-success">查询排班记录</button>
                         </div>
                     </form>
                 </div>
@@ -40,22 +40,16 @@
                         <thead>
                         <tr>
                             <th>
-                                站线编号
+                                排班记录编号
                             </th>
                             <th>
-                                站线顺序(0为终点站)
+                                排班编号
                             </th>
                             <th>
-                                线路编号
+                                乘坐人数
                             </th>
                             <th>
-                                线路名称
-                            </th>
-                            <th>
-                                站点编号
-                            </th>
-                            <th>
-                                站点名称
+                                乘载比率
                             </th>
                             <th style="width: 145px">
                                 操作
@@ -64,39 +58,27 @@
                         </thead>
                         <!--表格内容-->
                         <tbody>
-                        <tr class="warning" th:each="lineStation:${pageList.list}">
+                        <tr class="warning" th:each="scheduleRecord:${pageList.list}">
                             <!--遍历列表-->
-                            <!--/*@thymesVar id="lineStation" type="factory.management.system.project.pojo.LineStation"*/-->
-                            <div th:object="${lineStation}">
-                                <td th:text="*{lsId}"></td>
-                                <td th:text="*{sequence}"></td>
-                                <td th:text="*{lineId}"></td>
-                                <div th:each="line:${lineList}">
-                                    <!--/*@thymesVar id="line" type="factory.management.system.project.entity.Line"*/-->
-                                    <div th:if="${line.lineId} == ${lineStation.lineId}">
-                                        <td th:text="${line.lineName}"></td>
-                                    </div>
-                                </div>
-                                <td th:text="*{stationId}"></td>
-                                <div th:each="station:${stationList}">
-                                    <!--/*@thymesVar id="station" type="factory.management.system.project.entity.Station"*/-->
-                                    <div th:if="${station.stationId} == ${lineStation.stationId}">
-                                        <td th:text="${station.stationName}"></td>
-                                    </div>
-                                </div>
+                            <!--/*@thymesVar id="scheduleRecord" type="factory.management.system.project.entity.ScheduleRecord"*/-->
+                            <div th:object="${scheduleRecord}">
+                                <td th:text="*{srId}"></td>
+                                <td th:text="*{scheduleId}"></td>
+                                <td th:text="*{passengerNumber}"></td>
+                                <td th:text="*{rideRatio}"></td>
                                 <td>
                                     <!--操作按钮-->
                                     <div style="margin: -5px 0 -5px 0">
                                         <!--修改按钮-->
                                         <span class="">
                                          <!--修改按钮-->
-                                         <a id="modal-1" th:href="@{'#' + ${lineStation.lsId}}" role="button"
+                                         <a id="modal-1" th:href="@{'#' + ${scheduleRecord.srId}}" role="button"
                                             class="btn btn-info btn-sm" data-toggle="modal">
                                              <span class="glyphicon glyphicon-file"></span>
                                              修改
                                          </a>
                                             <!--遮罩窗体-->
-                                         <div class="modal fade" th:id="${lineStation.lsId}" role="dialog"
+                                         <div class="modal fade" th:id="${scheduleRecord.srId}" role="dialog"
                                               aria-labelledby="myModalLabel" aria-hidden="true">
                                              <div class="modal-dialog">
                                                  <div class="modal-content">
@@ -104,7 +86,7 @@
                                                          <div class="modal-header">
                                                              <h4 class="modal-title" id="myModalLabel"
                                                                  style="color: steelblue">
-                                                                 修改站线
+                                                                 修改排班记录
                                                              </h4>
                                                              <button type="button" class="close" data-dismiss="modal"
                                                                      aria-hidden="true">×</button>
@@ -112,38 +94,23 @@
                                                          <div class="modal-body" style="font-size: 15px">
                                                              <div class="form-group">
                                                                  <input type="hidden" class="form-control"
-                                                                        name="lsId"
-                                                                        th:value="${lineStation.lsId}">
+                                                                        name="srId"
+                                                                        th:value="${scheduleRecord.srId}">
                                                              </div>
                                                              <div class="form-group">
-                                                                 <label>站线顺序</label>
-                                                                 <input type="number" class="form-control"
-                                                                        name="sequence" required="" autofocus=""
-                                                                        th:value="${lineStation.sequence}">
-                                                             </div>
-                                                             <!--/*@thymesVar id="line" type="factory.management.system.project.entity.Line"*/-->
-                                                             <!--/*@thymesVar id="station" type="factory.management.system.project.entity.Station"*/-->
-                                                             <div class="form-group">
-                                                                <label>线路名称</label>
-                                                                <select class="form-control" name="lineId" required="">
-                                                                    <div th:each="line:${lineList}" th:object="${line}">
-                                                                        <option th:text="*{lineName}"
-                                                                                th:value="*{lineId}"
-                                                                                th:selected="(${line.lineId} == ${lineStation.lineId})"></option>
-                                                                    </div>
-                                                                </select>
+                                                                <label>排班编号</label>
+                                                                <input type="number" class="form-control" name="scheduleId" required="" autofocus=""
+                                                                        th:value="${scheduleRecord.scheduleId}">
                                                              </div>
                                                              <div class="form-group">
-                                                                <label>站点名称</label>
-                                                                <select class="form-control" name="stationId"
-                                                                        required="">
-                                                                    <div th:each="station:${stationList}"
-                                                                         th:object="${station}">
-                                                                        <option th:text="*{stationName}"
-                                                                                th:value="*{stationId}"
-                                                                                th:selected="(${station.stationId} == ${lineStation.stationId})"></option>
-                                                                    </div>
-                                                                </select>
+                                                                <label>乘坐人数</label>
+                                                                <input type="number" class="form-control" name="passengerNumber" required=""
+                                                                        th:value="${scheduleRecord.passengerNumber}">
+                                                             </div>
+                                                             <div class="form-group">
+                                                                <label>乘载比率</label>
+                                                                <input type="number" class="form-control" name="rideRatio" required=""
+                                                                        th:value="${scheduleRecord.rideRatio}">
                                                              </div>
                                                          </div>
                                                          <div class="modal-footer form-group">
@@ -157,10 +124,10 @@
                                              </div>
                                          </div>
                                          </span>
-                                        <!--删除按钮-->
-                                        <span class="">
+                                            <!--删除按钮-->
+                                            <span class="">
                                              <a class="btn btn-danger btn-sm"
-                                                th:href="@{${url} + '/delete?lsId=' + ${lineStation.lsId}}">
+                                                th:href="@{${url} + '/delete?srId=' + ${scheduleRecord.srId}}">
                                                  <span class="glyphicon glyphicon-trash"></span>
                                                  删除
                                              </a>
@@ -177,39 +144,37 @@
                 </div>
             </div>
 
-            <div class="col-md-3 column">
-                <!--新增站线表单-->
+            <!--<div class="col-md-3 column">
+                &lt;!&ndash;新增排班记录表单&ndash;&gt;
                 <div style="margin: 25px 20px 0px 10px">
                     <form class="form-horizontal" role="form" method="post" th:action="@{${url} + '/insert'}">
                         <div class="form-group">
-                            <label>站线顺序</label>
-                            <input type="number" class="form-control" name="sequence" required=""
-                                   autofocus="" placeholder="请从2开始输入">
+                            <label>排班编号</label>
+                            <input type="number" class="form-control" name="scheduleId" required="" autofocus="">
                         </div>
-                        <!--/*@thymesVar id="line" type="factory.management.system.project.entity.Line"*/-->
-                        <!--/*@thymesVar id="station" type="factory.management.system.project.entity.Station"*/-->
                         <div class="form-group">
-                            <label>线路名称</label>
-                            <select class="form-control" name="lineId" required="">
-                                <div th:each="line:${lineList}" th:object="${line}">
-                                    <option th:text="*{lineName}" th:value="*{lineId}"></option>
-                                </div>
-                            </select>
+                            <label>排班编号</label>
+                            <input type="number" class="form-control" name="scheduleId" required="">
                         </div>
                         <div class="form-group">
                             <label>站点名称</label>
                             <select class="form-control" name="stationId" required="">
+                                &lt;!&ndash;/*@thymesVar id="station" type="factory.management.system.project.entity.Station"*/&ndash;&gt;
                                 <div th:each="station:${stationList}" th:object="${station}">
                                     <option th:text="*{stationName}" th:value="*{stationId}"></option>
                                 </div>
                             </select>
                         </div>
+                        <div class="form-group">
+                            <input type="hidden" class="form-control"
+                                   name="status" value="未乘车">
+                        </div>
                         <div class="form-group" style="margin-top: 30px">
-                            <button type="submit" class="btn btn-success btn-block">新增站线</button>
+                            <button type="submit" class="btn btn-success btn-block">新增排班记录</button>
                         </div>
                     </form>
                 </div>
-            </div>
+            </div>-->
         </div>
     </div>
 </div>

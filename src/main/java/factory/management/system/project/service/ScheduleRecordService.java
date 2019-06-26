@@ -5,8 +5,12 @@ import factory.management.system.project.entity.ScheduleRecord;
 import factory.management.system.project.mapper.ScheduleRecordMapper;
 import factory.management.system.project.pojo.PageSizeInfo;
 import factory.management.system.project.utils.MyDruid;
+import factory.management.system.project.utils.MyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * ScheduleRecordController
@@ -20,7 +24,25 @@ import org.springframework.stereotype.Service;
 public class ScheduleRecordService {
     
     @Autowired
-    private ScheduleRecordMapper ScheduleRecordMapper;
+    private ScheduleRecordMapper scheduleRecordMapper;
+
+    /**
+     * 导出成Excel表格
+     *
+     * @param response
+     */
+    public void exportExcel(HttpServletResponse response) {
+        MyUtils.exportExcel(response, "排班记录表", scheduleRecordList());
+    }
+
+    /**
+     * 获取排班记录列表
+     *
+     * @return
+     */
+    public List<ScheduleRecord> scheduleRecordList() {
+        return scheduleRecordMapper.selectAll();
+    }
 
     /**
      * 获取排班记录列表
@@ -30,43 +52,43 @@ public class ScheduleRecordService {
      */
     public PageInfo<ScheduleRecord> getScheduleRecords(PageSizeInfo pageSizeInfo) {
         // 分页查询
-        return (PageInfo<ScheduleRecord>) MyDruid.of(ScheduleRecordMapper).retrieve(pageSizeInfo);
+        return (PageInfo<ScheduleRecord>) MyDruid.of(scheduleRecordMapper).retrieve(pageSizeInfo);
     }
 
     /**
      * 获取单个排班记录
      *
-     * @param ScheduleRecordId
+     * @param srId
      * @return
      */
-    public ScheduleRecord getScheduleRecord(Integer ScheduleRecordId) {
-        return (ScheduleRecord) MyDruid.of(ScheduleRecordMapper).retrieve(ScheduleRecordId);
+    public ScheduleRecord getScheduleRecord(Integer srId) {
+        return (ScheduleRecord) MyDruid.of(scheduleRecordMapper).retrieve(srId);
     }
 
     /**
      * 新增排班记录
      *
-     * @param ScheduleRecord
+     * @param scheduleRecord
      */
-    public void insertScheduleRecord(ScheduleRecord ScheduleRecord) {
-        MyDruid.of(ScheduleRecordMapper).insert(ScheduleRecord);
+    public void insertScheduleRecord(ScheduleRecord scheduleRecord) {
+        MyDruid.of(scheduleRecordMapper).insert(scheduleRecord);
     }
 
     /**
      * 更新排班记录
      *
-     * @param ScheduleRecord
+     * @param scheduleRecord
      */
-    public void updateScheduleRecord(ScheduleRecord ScheduleRecord) {
-        MyDruid.of(ScheduleRecordMapper).update(ScheduleRecord);
+    public void updateScheduleRecord(ScheduleRecord scheduleRecord) {
+        MyDruid.of(scheduleRecordMapper).update(scheduleRecord);
     }
 
     /**
      * 删除排班记录
      *
-     * @param ScheduleRecordId
+     * @param srId
      */
-    public void deleteScheduleRecord(Integer ScheduleRecordId) {
-        MyDruid.of(ScheduleRecordMapper).delete(ScheduleRecordId);
+    public void deleteScheduleRecord(Integer srId) {
+        MyDruid.of(scheduleRecordMapper).delete(srId);
     }
 }

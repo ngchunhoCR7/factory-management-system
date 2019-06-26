@@ -89,7 +89,7 @@ public class AdminService {
         criteria.andEqualTo("adminPassword", PasswordEncrypt.encodeByMd5(admin.getAdminPassword()));
         // 查找判断
         List<Admin> admins = adminMapper.selectByExample(example);
-        if(admins == null) {
+        if(admins.size() == 0) {
             return false;
         } else {
             return true;

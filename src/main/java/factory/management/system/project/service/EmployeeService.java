@@ -10,6 +10,7 @@ import factory.management.system.project.utils.MyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -25,6 +26,24 @@ public class EmployeeService {
 
     @Autowired
     private EmployeeMapper employeeMapper;
+
+    /**
+     * 导出成Excel表格
+     *
+     * @param response
+     */
+    public void exportExcel(HttpServletResponse response) {
+        MyUtils.exportExcel(response, "员工信息表", employeeList());
+    }
+
+    /**
+     * 获取员工列表
+     *
+     * @return
+     */
+    public List<Employee> employeeList() {
+        return employeeMapper.selectAll();
+    }
 
     /**
      * 获取员工信息列表
