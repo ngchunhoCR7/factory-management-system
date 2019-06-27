@@ -30,12 +30,12 @@
         <!--查询站点表单-->
         <div style="margin: 25px 20px 0px 10px">
             <form class="form-horizontal" role="form" method="post" th:action="@{${url} + '/query'}">
-                <!--/*@thymesVar id="station" type="factory.management.system.project.entity.Station"*/-->
+                <!--/*@thymesVar id="line" type="factory.management.system.project.entity.Line"*/-->
                 <div class="form-group">
-                    <label>站点名称</label>
-                    <select class="form-control" name="stationId" required="">
-                        <div th:each="station:${stationList}" th:object="${station}">
-                            <option th:text="*{stationName}" th:value="*{stationId}"></option>
+                    <label>线路名称</label>
+                    <select class="form-control" name="lineId" required="">
+                        <div th:each="line:${lineList}" th:object="${line}">
+                            <option th:text="*{lineName}" th:value="*{lineId}"></option>
                         </div>
                     </select>
                 </div>

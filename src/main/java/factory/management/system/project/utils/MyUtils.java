@@ -267,7 +267,8 @@ public class MyUtils {
             response.setCharacterEncoding("UTF-8");
             response.setContentType("application/vnd.ms-excel");
             // 设置成xlsx格式
-            response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(filename + ".xlsx", "UTF-8"));
+            response.setHeader("Content-Disposition", "attachment;filename=" +
+                    URLEncoder.encode(filename + ".xlsx", "UTF-8"));
             // 创建输出流
             ServletOutputStream outputStream = response.getOutputStream();
             // 写入数据
