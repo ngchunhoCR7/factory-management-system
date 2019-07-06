@@ -21,15 +21,25 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
     @Autowired
     private LoginInterceptor loginInterceptor;
 
+    /**
+     * 配置拦截路径
+     *
+     * @param registry
+     */
     @Override
     protected void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(loginInterceptor).addPathPatterns("/server/**").excludePathPatterns("/server/login", "/server/tologin", "/static/**");
         super.addInterceptors(registry);
     }
 
+    /**
+     * 配置静态文件路径
+     *
+     * @param registry
+     */
     @Override
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
         super.addResourceHandlers(registry);
     }
 }
