@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * ServerController
  *
  * @author ngchunho
  * @version 1.0.0
- * @description
+ * @description 服务器功能服务器
  * @date 2019/6/18 21:11
  */
 @Controller
@@ -24,30 +26,28 @@ public class ServerController {
     @Autowired
     private AdminService adminService;
 
+    /**
+     * 跳转到服务器首页
+     *
+     * @return
+     */
     @RequestMapping("/index")
     public String index() {
         // 重定向到员工管理首页
         return "redirect:/server/employee/index";
     }
 
-    @RequestMapping("/login")
-    public String login(/*HttpServletRequest request, Model model*/) {
-        /*// 获取cookie
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                Admin admin;
-                if (cookie.getName().equals("remember")) {
-                    // 从json中获取对象
-                    admin = JSON.parseObject(cookie.getValue(), Admin.class);
-                    // 返回前端
-                    model.addAttribute("admin", admin);
-                } else {
-                    model.addAttribute("admin", new Admin());
-                }
-            }
-        }*/
-        return "login";
+    /**
+     * 退出到登录页面
+     *
+     * @param session
+     * @return
+     */
+    @RequestMapping("/exit")
+    public String exit(HttpSession session) {
+        // 清空登录状态
+        session.setAttribute("admin", "");
+        return "redirect:/server/login";
     }
 
     @RequestMapping("/test")
@@ -73,9 +73,15 @@ public class ServerController {
         return employee;
     }
 
+    /**
+     * 检查用户状态
+     *
+     * @param admin
+     * @return
+     */
     @ResponseBody
     @PostMapping(value = "/tologin")
-    public boolean tologin(Admin admin/*, String remember, HttpServletResponse response*/) {
+    public boolean tologin(HttpSession session, Admin admin /*, String remember, HttpServletResponse response*/) {
         /*if ("remember-me".equals(remember)) {
             // 转化为json字符串
             String adminJson = JSON.toJSONString(admin);
@@ -84,6 +90,13 @@ public class ServerController {
             response.addCookie(cookie);
         }*/
 
-        return adminService.login(admin);
+        // 判断是否存在管理员
+        boolean result = adminService.login(admin);
+        if (result) {
+            session.setAttribute("admin", admin.getAdminName());
+            return true;
+        } else {
+            return false;
+        }
     }
 }

@@ -1,7 +1,6 @@
 package factory.management.system.project.tasks;
 
 import factory.management.system.project.utils.MyUtils;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 /**
@@ -16,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class StationTask {
 
     // 定义每过10秒执行任务
-    @Scheduled(fixedRate = 10000)
+//    @Scheduled(fixedRate = 10000)
     // http://cron.qqe2.com/
     // @Scheduled(cron = "4-40 * * * * ?")
     public void reportCurrentTime() {
